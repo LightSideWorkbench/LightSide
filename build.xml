@@ -3,8 +3,8 @@
     <property environment="env"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.6"/>
-    <property name="source" value="1.6"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
     <property name="lightside.location" value="."/>
     <!--<property name="ECLIPSE_HOME" value="/Applications/eclipse"/>-->
 	<!-- ECLIPSE_HOME is only used to reference where the junit JARs live - if your JUnit is elsewhere, you don't need this variable. -->
@@ -51,8 +51,20 @@
 
 	<target name="build" depends="clean,compile,test"/>
 
-	<target name="compile" depends="compile-lightside,compile-tests"/>
+	<target name="compile" depends="get-stanford-chinese,compile-lightside,compile-tests"/>
 	
+    <target name="get-stanford-chinese">
+        <get src="https://nlp.stanford.edu/software/stanford-segmenter-2018-02-27.zip"
+             skipexisting="true" dest = "." />
+        <unzip src="stanford-segmenter-2018-02-27.zip" dest="." />
+        <move todir="lib">
+           <fileset dir="stanford-segmenter-2018-02-27">
+             <include name="stanford-segmenter*.jar"/>
+           </fileset>
+        </move>
+        <move file="stanford-segmenter-2018-02-27/data" tofile="toolkits/segmentation"/>
+    </target>
+
     <target depends="init" name="compile-lightside">
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
@@ -60,6 +72,16 @@
         	
             <classpath refid="lightside.buildpath"/>
         </javac>
+    </target>
+
+    <target depends="compile-lightside" name="lightside-jar">
+       <jar destfile="${lightside.location}/lightside.jar" basedir="bin">
+            <manifest>
+                <attribute name="Built-By" value="${builder}" />
+                <attribute name="Built-On" value="${build-info.current-date}" />
+                <attribute name="Built-At" value="${build-info.current-time}" />
+            </manifest>
+       </jar>
     </target>
 	
     <target depends="init" name="compile-tests">

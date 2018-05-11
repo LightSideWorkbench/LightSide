@@ -2,7 +2,11 @@ package edu.cmu.side.util;
 
 public enum TokenizingToolLanguage
 {
-	ENGLISH(EnglishTokenizingTool.class), GERMAN(GermanTokenizingTool.class), FRENCH(FrenchTokenizingTool.class), ARABIC(ArabicTokenizingTool.class);
+	ENGLISH(EnglishTokenizingTool.class), 
+	GERMAN(GermanTokenizingTool.class), 
+	FRENCH(FrenchTokenizingTool.class), 
+	//ARABIC(ArabicTokenizingTool.class), 
+	CHINESE(ChineseTokenizingTool.class);
 
 	private AbstractTokenizingTool tool;
 	private TokenizingToolLanguage(Class<? extends AbstractTokenizingTool> clazz)

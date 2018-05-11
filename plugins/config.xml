@@ -36,14 +36,14 @@
 		<classname>plugins.features.BasicFeatures</classname>
 	</plugin>
     
-	<!-- <plugin>
+	 <plugin>
 		<name>International Basic Features</name>
 		<author>Elijah Mayfield</author>
 		<version>1.0</version>
 		<description>Basic TagHelper-like Features</description>
 		<jarfile>genesis.jar</jarfile>
 		<classname>plugins.features.InternationalBasicFeatures</classname>
-	</plugin> -->  
+	</plugin>
 
 	<plugin>
 		<name>Column Features</name>
@@ -73,7 +73,7 @@
 	</plugin>
 	
 	<plugin>
-		<name>Parse Features</name>
+		<name>English Parse Features</name>
 		<author>David Adamson</author>
 		<version>1.0</version>
 		<description>features from parsing</description>
