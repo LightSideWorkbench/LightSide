@@ -9,7 +9,7 @@ public class FrenchTokenizingTool extends AbstractTokenizingTool
 {
 
 	@Override
-	protected TokenizerFactory<CoreLabel> createTokenizerFactory()
+	public TokenizerFactory<CoreLabel> createTokenizerFactory()
 	{
 		// TODO Auto-generated method stub
 		return FrenchTokenizer.factory();

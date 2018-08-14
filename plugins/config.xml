@@ -37,7 +37,7 @@
 	</plugin>
     
 	 <plugin>
-		<name>International Basic Features</name>
+		<name>Basic Features</name>
 		<author>Elijah Mayfield</author>
 		<version>1.0</version>
 		<description>Basic TagHelper-like Features</description>

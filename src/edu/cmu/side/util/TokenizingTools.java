@@ -27,6 +27,7 @@ public class TokenizingTools
 
 	protected static TokenizerFactory<CoreLabel> getTokenizerFactory()
 	{
+		System.out.println("Getting factory " + factory);
 		if (factory == null)//does this duplicated outer check save lock-time?
 		{
 			//factory = PTBTokenizerFactory.newPTBTokenizerFactory(false, true);
@@ -39,7 +40,10 @@ public class TokenizingTools
 		}
 		return factory;
 	}
-
+	public static void replaceFactory(TokenizerFactory<CoreLabel> newFactory) {
+		System.out.println("Setting factory to " + factory);
+		factory = newFactory;
+	}
 	protected static MaxentTagger getTagger()
 	{
 		if (tagger == null) try//does this duplicated outer check save lock-time?
