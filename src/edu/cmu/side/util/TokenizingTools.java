@@ -24,26 +24,29 @@ public class TokenizingTools
 	public static final String DEFAULT_TAGGER_MODEL = "toolkits/maxent/english-caseless-left3words-distsim.tagger";
 	private static MaxentTagger tagger;
 	private static TokenizerFactory<CoreLabel> factory;
-
+	private static TokenizingToolLanguage language = TokenizingToolLanguage.ENGLISH;
+	
+	public static void setLanguage(TokenizingToolLanguage language) {
+		synchronized(TokenizingTools.class)
+		{
+			TokenizingTools.language = language;
+			TokenizingTools.factory = null;
+			TokenizingTools.tagger = null;
+		}
+	}
 	protected static TokenizerFactory<CoreLabel> getTokenizerFactory()
 	{
-		System.out.println("Getting factory " + factory);
 		if (factory == null)//does this duplicated outer check save lock-time?
 		{
-			//factory = PTBTokenizerFactory.newPTBTokenizerFactory(false, true);
 			synchronized(TokenizingTools.class)
 			{
-				if(factory == null) 
-				factory = PTBTokenizerFactory.newPTBTokenizerFactory(new CoreLabelTokenFactory(true), "invertible,unicodeQuotes=true,untokenizable=firstKeep");
+				if(factory == null) factory = language.getTool().createTokenizerFactory();
 			}
 			
 		}
 		return factory;
 	}
-	public static void replaceFactory(TokenizerFactory<CoreLabel> newFactory) {
-		System.out.println("Setting factory to " + factory);
-		factory = newFactory;
-	}
+	
 	protected static MaxentTagger getTagger()
 	{
 		if (tagger == null) try//does this duplicated outer check save lock-time?

@@ -27,6 +27,7 @@
 		<jarfile>example.jar</jarfile>
 		<classname>example.features.WordMatchingExamplePlugin</classname>
 	</plugin> -->
+	
 	<plugin>
 		<name>Basic Features</name>
 		<author>Elijah Mayfield</author>
@@ -34,16 +35,17 @@
 		<description>Basic TagHelper-like Features</description>
 		<jarfile>genesis.jar</jarfile>
 		<classname>plugins.features.BasicFeatures</classname>
-	</plugin>
-    
+	</plugin> 
+<!--    
 	 <plugin>
-		<name>Basic Features</name>
-		<author>Elijah Mayfield</author>
-		<version>1.0</version>
-		<description>Basic TagHelper-like Features</description>
-		<jarfile>genesis.jar</jarfile>
-		<classname>plugins.features.InternationalBasicFeatures</classname>
-	</plugin>
+        <name>Language Selection</name>
+        <author>Elijah Mayfield</author>
+        <version>1.0</version>
+        <description>Tokenizer and POS tagger choice that other features rely on</description>
+        <jarfile>genesis.jar</jarfile>
+        <classname>plugins.features.InternationalTokenSettings</classname>
+    </plugin>
+-->
 
 	<plugin>
 		<name>Column Features</name>
