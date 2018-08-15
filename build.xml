@@ -45,7 +45,6 @@
     </target>
     <target name="clean">
         <delete dir="bin"/>
-        <move file="plugins/config-english.xml" tofile="plugins/config.xml"/>
     </target>
     <target depends="clean" name="cleanall"/>
 	
@@ -54,13 +53,15 @@
 	<target name="build" depends="clean,compile,test"/>
 
 	<target name="compile-intl" depends="get-stanford-chinese,compile-lightside,compile-tests"/>
-	<target name="compile" depends="compile-lightside,compile-tests"/>
+	<target name="compile" depends="compile-lightside,compile-tests">
+            <copy file="plugins/config-english.xml" tofile="plugins/config.xml" overwrite="true"/>
+        </target>
 	
     <target name="get-stanford-chinese">
+        <copy file="plugins/config-intl.xml" tofile="plugins/config.xml" overwrite="true"/>
         <get src="https://nlp.stanford.edu/software/stanford-segmenter-2018-02-27.zip"
              skipexisting="true" dest = "." />
         <unzip src="stanford-segmenter-2018-02-27.zip" dest="." />
-        <move file="plugins/config-intl.xml" tofile="plugins/config.xml"/>
         <move todir="lib">
            <fileset dir="stanford-segmenter-2018-02-27">
              <include name="stanford-segmenter*.jar"/>
