@@ -31,9 +31,11 @@ public class TokenizingTools
 		{
 			TokenizingTools.language = language;
 			TokenizingTools.factory = null;
-			TokenizingTools.tagger = null;
+			TokenizingTools.tagger = null;  
 		}
 	}
+	public static TokenizingToolLanguage getLanguage() { return language; }
+
 	protected static TokenizerFactory<CoreLabel> getTokenizerFactory()
 	{
 		if (factory == null)//does this duplicated outer check save lock-time?
@@ -54,7 +56,7 @@ public class TokenizingTools
 			synchronized(TokenizingTools.class)
 			{
 				if(tagger == null)
-					tagger = new MaxentTagger(DEFAULT_TAGGER_MODEL);
+					tagger = language.getTool().getTagger(); //  new MaxentTagger(DEFAULT_TAGGER_MODEL);
 			}
 		}
 		catch (Exception e)
@@ -129,6 +131,12 @@ public class TokenizingTools
 		return sentences;
 	}
 
+	public static String getPunctuationFilename() {
+		return language.getTool().punctuationFilename();
+	}
+	public static String getStopwordsFilename() {
+		return language.getTool().stopwordsFilename();		
+	}
 	public static List<String> tokenize(String s)
 	{
 		StringReader reader = new StringReader(s.toLowerCase());
