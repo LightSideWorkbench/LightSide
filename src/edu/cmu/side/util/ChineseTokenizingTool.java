@@ -15,7 +15,7 @@ public class ChineseTokenizingTool extends AbstractTokenizingTool
 {
 
 	@Override
-	protected TokenizerFactory<CoreLabel> createTokenizerFactory()
+	public TokenizerFactory<CoreLabel> createTokenizerFactory()
 	{
 		return new ChineseTokenizer.ChineseTokenizerFactory<CoreLabel>(new CoreLabelTokenFactory(true)); 	
 	}

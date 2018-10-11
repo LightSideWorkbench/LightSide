@@ -9,7 +9,7 @@ public class ArabicTokenizingTool extends AbstractTokenizingTool
 {
 
 	@Override
-	protected TokenizerFactory<CoreLabel> createTokenizerFactory()
+	public TokenizerFactory<CoreLabel> createTokenizerFactory()
 	{
 		// TODO may want to switch to a WordSegmenter for Arabic and Chinese
 		return ArabicTokenizer.factory();

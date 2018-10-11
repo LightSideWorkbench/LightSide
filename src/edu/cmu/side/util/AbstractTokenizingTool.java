@@ -25,7 +25,7 @@ public abstract class AbstractTokenizingTool
 	private TokenizerFactory<CoreLabel> factory;
 	protected static final String stopwordsFilename = "toolkits/english.stp";
 	protected static final String punctuationFilename = "toolkits/punctuation.stp";
-	protected abstract TokenizerFactory<CoreLabel> createTokenizerFactory();
+	public abstract TokenizerFactory<CoreLabel> createTokenizerFactory();
 	
 	protected abstract MaxentTagger createTagger();
 	

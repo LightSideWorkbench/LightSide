@@ -24,22 +24,31 @@ public class TokenizingTools
 	public static final String DEFAULT_TAGGER_MODEL = "toolkits/maxent/english-caseless-left3words-distsim.tagger";
 	private static MaxentTagger tagger;
 	private static TokenizerFactory<CoreLabel> factory;
+	private static TokenizingToolLanguage language = TokenizingToolLanguage.ENGLISH;
+	
+	public static void setLanguage(TokenizingToolLanguage language) {
+		synchronized(TokenizingTools.class)
+		{
+			TokenizingTools.language = language;
+			TokenizingTools.factory = null;
+			TokenizingTools.tagger = null;  
+		}
+	}
+	public static TokenizingToolLanguage getLanguage() { return language; }
 
 	protected static TokenizerFactory<CoreLabel> getTokenizerFactory()
 	{
 		if (factory == null)//does this duplicated outer check save lock-time?
 		{
-			//factory = PTBTokenizerFactory.newPTBTokenizerFactory(false, true);
 			synchronized(TokenizingTools.class)
 			{
-				if(factory == null) 
-				factory = PTBTokenizerFactory.newPTBTokenizerFactory(new CoreLabelTokenFactory(true), "invertible,unicodeQuotes=true,untokenizable=firstKeep");
+				if(factory == null) factory = language.getTool().createTokenizerFactory();
 			}
 			
 		}
 		return factory;
 	}
-
+	
 	protected static MaxentTagger getTagger()
 	{
 		if (tagger == null) try//does this duplicated outer check save lock-time?
@@ -47,7 +56,7 @@ public class TokenizingTools
 			synchronized(TokenizingTools.class)
 			{
 				if(tagger == null)
-					tagger = new MaxentTagger(DEFAULT_TAGGER_MODEL);
+					tagger = language.getTool().getTagger(); //  new MaxentTagger(DEFAULT_TAGGER_MODEL);
 			}
 		}
 		catch (Exception e)
@@ -122,6 +131,12 @@ public class TokenizingTools
 		return sentences;
 	}
 
+	public static String getPunctuationFilename() {
+		return language.getTool().punctuationFilename();
+	}
+	public static String getStopwordsFilename() {
+		return language.getTool().stopwordsFilename();		
+	}
 	public static List<String> tokenize(String s)
 	{
 		StringReader reader = new StringReader(s.toLowerCase());
