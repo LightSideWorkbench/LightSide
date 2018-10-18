@@ -11,6 +11,8 @@ package edu.cmu.side.plugin.control;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.List;
 
 import com.yerihyo.yeritools.RTTIToolkit;
@@ -36,6 +38,17 @@ public class PluginLoader {
 		return this.plugin;
 	}
 
+	public static Class<?> getClass(File jarFile, String name) throws Exception {
+		URLClassLoader clazzLoader;
+		Class<?> clazz;
+		String filePath = jarFile.getAbsolutePath();
+		filePath = "file:///" + filePath + "";
+		URL url = new URL(filePath);
+		clazzLoader = new URLClassLoader(new URL[] { url });
+		clazz = clazzLoader.loadClass(name);
+		return clazz;
+	}
+	
 	public PluginLoader(String jarFilePath, String className) throws Exception {
 		this.jarFile = new File(jarFilePath);
 		if (!jarFile.exists()) {
@@ -48,7 +61,7 @@ public class PluginLoader {
 
 		try 
 		{
-			Class<?> clazz = RTTIToolkit.getClass(this.jarFile, className);
+			Class<?> clazz = getClass(this.jarFile, className);
 			Constructor<?> constructor = clazz.getConstructor();
 			this.plugin = (SIDEPlugin) constructor.newInstance();
 			this.plugin.setRootFolder(new File(""));

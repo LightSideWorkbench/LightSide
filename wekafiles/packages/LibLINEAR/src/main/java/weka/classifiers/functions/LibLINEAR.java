@@ -1,22 +1,34 @@
 /*
- *    This program is free software; you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation; either version 2 of the License, or
- *    (at your option) any later version.
+ * Copyright (c) 2007-2013 University of Waikato.
+ * All rights reserved.
  *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
  *
- *    You should have received a copy of the GNU General Public License
- *    along with this program; if not, write to the Free Software
- *    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
-
-/*
- * LibLINEAR.java
- * Copyright (C) Benedikt Waldvogel
+ * 1. Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *
+ * 3. Neither name of copyright holders nor the names of its contributors
+ * may be used to endorse or promote products derived from this software
+ * without specific prior written permission.
+ *
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package weka.classifiers.functions;
 
@@ -77,11 +89,19 @@ import de.bwaldvogel.liblinear.SolverType;
  *
  * <pre> -S &lt;int&gt;
  *  Set type of solver (default: 1)
- *    0 = L2-regularized logistic regression
- *    1 = L2-loss support vector machines (dual)
- *    2 = L2-loss support vector machines (primal)
- *    3 = L1-loss support vector machines (dual)
- *    4 = multi-class support vector machines by Crammer and Singer</pre>
+ *   for multi-class classification
+ *     0 -- L2-regularized logistic regression (primal)
+ *     1 -- L2-regularized L2-loss support vector classification (dual)
+ *     2 -- L2-regularized L2-loss support vector classification (primal)
+ *     3 -- L2-regularized L1-loss support vector classification (dual)
+ *     4 -- support vector classification by Crammer and Singer
+ *     5 -- L1-regularized L2-loss support vector classification
+ *     6 -- L1-regularized logistic regression
+ *     7 -- L2-regularized logistic regression (dual)
+ *  for regression
+ *    11 -- L2-regularized L2-loss support vector regression (primal)
+ *    12 -- L2-regularized L2-loss support vector regression (dual)
+ *    13 -- L2-regularized L1-loss support vector regression (dual)</pre>
  *
  * <pre> -C &lt;double&gt;
  *  Set the cost parameter C
@@ -90,19 +110,24 @@ import de.bwaldvogel.liblinear.SolverType;
  * <pre> -Z
  *  Turn on normalization of input data (default: off)</pre>
  *
- * <pre> -N
- *  Turn on nominal to binary conversion.</pre>
+ * <pre>
+ * -L &lt;double&gt;
+ *  The epsilon parameter in epsilon-insensitive loss function.
+ *  (default 0.1)
+ * </pre>
  *
- * <pre> -M
- *  Turn off missing value replacement.
- *  WARNING: use only if your data has no missing values.</pre>
+ * <pre>
+ * -I &lt;int&gt;
+ *  The maximum number of iterations to perform.
+ *  (default 0.1)
+ * </pre>
  *
  * <pre> -P
  *  Use probability estimation (default: off)
  * currently for L2-regularized logistic regression only! </pre>
  *
  * <pre> -E &lt;double&gt;
- *  Set tolerance of termination criterion (default: 0.01)</pre>
+ *  Set tolerance of termination criterion (default: 0.001)</pre>
  *
  * <pre> -W &lt;double&gt;
  *  Set the parameters C of class i to weight[i]*C
@@ -118,11 +143,11 @@ import de.bwaldvogel.liblinear.SolverType;
  <!-- options-end -->
  *
  * @author  Benedikt Waldvogel (mail at bwaldvogel.de)
- * @version 1.8
+ * @version 1.9.0
  */
 public class LibLINEAR extends AbstractClassifier implements TechnicalInformationHandler {
 
-    public static final String  REVISION         = "1.8";
+    public static final String  REVISION         = "1.9.0";
 
     /** serial UID */
     protected static final long serialVersionUID = 230504711;
@@ -142,14 +167,17 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
     protected boolean              m_Normalize            = false;
 
     /** SVM solver types */
-    public static final Tag[]      TAGS_SVMTYPE           = {new Tag(SolverType.L2R_LR.ordinal(), "L2-regularized logistic regression"),
-            new Tag(SolverType.L2R_L2LOSS_SVC_DUAL.ordinal(), "L2-loss support vector machines (dual)"),
-            new Tag(SolverType.L2R_L2LOSS_SVC.ordinal(), "L2-loss support vector machines (primal)"),
-            new Tag(SolverType.L2R_L1LOSS_SVC_DUAL.ordinal(), "L1-loss support vector machines (dual)"),
-            new Tag(SolverType.MCSVM_CS.ordinal(), "multi-class support vector machines by Crammer and Singer"),
-            new Tag(SolverType.L1R_L2LOSS_SVC.ordinal(), "L1-regularized L2-loss support vector classification"),
-            new Tag(SolverType.L1R_LR.ordinal(), "L1-regularized logistic regression"),
-            new Tag(SolverType.L2R_LR_DUAL.ordinal(), "L2-regularized logistic regression (dual)")};
+    public static final Tag[]      TAGS_SVMTYPE           = {new Tag(SolverType.L2R_LR.getId(), "L2-regularized logistic regression (primal)"),
+            new Tag(SolverType.L2R_L2LOSS_SVC_DUAL.getId(), "L2-regularized L2-loss support vector classification (dual)"),
+            new Tag(SolverType.L2R_L2LOSS_SVC.getId(), "L2-regularized L2-loss support vector classification (primal)"),
+            new Tag(SolverType.L2R_L1LOSS_SVC_DUAL.getId(), "L2-regularized L1-loss support vector classification (dual)"),
+            new Tag(SolverType.MCSVM_CS.getId(), "support vector classification by Crammer and Singer"),
+            new Tag(SolverType.L1R_L2LOSS_SVC.getId(), "L1-regularized L2-loss support vector classification"),
+            new Tag(SolverType.L1R_LR.getId(), "L1-regularized logistic regression"),
+            new Tag(SolverType.L2R_LR_DUAL.getId(), "L2-regularized logistic regression (dual)"),
+            new Tag(SolverType.L2R_L2LOSS_SVR.getId(), "L2-regularized L2-loss support vector regression (primal)"),
+            new Tag(SolverType.L2R_L2LOSS_SVR_DUAL.getId(), "L2-regularized L2-loss support vector regression (dual)"),
+            new Tag(SolverType.L2R_L1LOSS_SVR_DUAL.getId(), "L2-regularized L1-loss support vector regression (dual)")};
 
     protected final SolverType     DEFAULT_SOLVER         = SolverType.L2R_L2LOSS_SVC_DUAL;
 
@@ -157,10 +185,16 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
     protected SolverType           m_SolverType           = DEFAULT_SOLVER;
 
     /** stopping criteria */
-    protected double               m_eps                  = 0.01;
+    protected double               m_eps                  = 0.001;
+
+    /** epsilon of epsilon-insensitive cost function **/
+    protected double m_epsilon = 1e-1;
 
     /** cost Parameter C */
     protected double               m_Cost                 = 1;
+
+    /** the maximum number of iterations */
+    protected int m_MaxIts = 1000;
 
     /** bias term value */
     protected double               m_Bias                 = 1;
@@ -173,17 +207,21 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      * classification problems */
     protected boolean              m_ProbabilityEstimates = false;
 
-    /** The filter used to get rid of missing values. */
-    protected ReplaceMissingValues m_ReplaceMissingValues;
-
     /** The filter used to make attributes numeric. */
     protected NominalToBinary      m_NominalToBinary;
 
-    /** If true, the nominal to binary filter is applied */
-    private boolean                m_nominalToBinary      = false;
+    /** The filter used to replace missing values. */
+    protected ReplaceMissingValues      m_ReplaceMissingValues;
 
-    /** If true, the replace missing values filter is not applied */
-    private boolean                m_noReplaceMissingValues;
+    /** Header of instances for output. */
+    protected Instances m_Header;
+
+    /** Class counts (needed for output) */
+    protected double[] m_Counts;
+
+    /** coefficients used by normalization filter for doing its linear transformation **/
+    protected double m_x1 = 1.0;
+    protected double m_x0 = 0.0;
 
     /**
      * Returns a string describing classifier
@@ -202,8 +240,7 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      *
      * @return the technical information about this class
      */
-    @Override
-	public TechnicalInformation getTechnicalInformation() {
+    public TechnicalInformation getTechnicalInformation() {
         TechnicalInformation result;
 
         result = new TechnicalInformation(Type.MISC);
@@ -211,7 +248,7 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
         result.setValue(TechnicalInformation.Field.TITLE, "LIBLINEAR - A Library for Large Linear Classification");
         result.setValue(TechnicalInformation.Field.YEAR, "2008");
         result.setValue(TechnicalInformation.Field.URL, "http://www.csie.ntu.edu.tw/~cjlin/liblinear/");
-        result.setValue(TechnicalInformation.Field.NOTE, "The Weka classifier works with version 1.33 of LIBLINEAR");
+        result.setValue(TechnicalInformation.Field.NOTE, "The Weka classifier works with version 1.95 of the Java port of LIBLINEAR");
 
         return result;
     }
@@ -221,40 +258,48 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      *
      * @return an enumeration of all the available options.
      */
-    @Override
-	@SuppressWarnings("rawtypes")
+    @SuppressWarnings("rawtypes")
     public Enumeration listOptions() {
 
         Vector<Object> result = new Vector<Object>();
 
         result.addElement(new Option("\tSet type of solver (default: 1)\n" //
-            + "\t\t 0 = L2-regularized logistic regression\n" //
-            + "\t\t 1 = L2-loss support vector machines (dual)\n" //
-            + "\t\t 2 = L2-loss support vector machines (primal)\n" //
-            + "\t\t 3 = L1-loss support vector machines (dual)\n" //
-            + "\t\t 4 = multi-class support vector machines by Crammer and Singer\n" //
-            + "\t\t 5 = L1-regularized L2-loss support vector classification\n" //
-            + "\t\t 6 = L1-regularized logistic regression\n" //
-            + "\t\t 7 = L2-regularized logistic regression (dual)", //
+            + "\tfor multi-class classification\n" //
+            + "\t\t 0 -- L2-regularized logistic regression (primal)\n" //
+            + "\t\t 1 -- L2-regularized L2-loss support vector classification (dual)\n" //
+            + "\t\t 2 -- L2-regularized L2-loss support vector classification (primal)\n" //
+            + "\t\t 3 -- L2-regularized L1-loss support vector classification (dual)\n" //
+            + "\t\t 4 -- support vector classification by Crammer and Singer\n" //
+            + "\t\t 5 -- L1-regularized L2-loss support vector classification\n" //
+            + "\t\t 6 -- L1-regularized logistic regression\n" //
+            + "\t\t 7 -- L2-regularized logistic regression (dual)\n" //
+            + "\tfor regression\n" //
+            + "\t\t11 -- L2-regularized L2-loss support vector regression (primal)\n" //
+            + "\t\t12 -- L2-regularized L2-loss support vector regression (dual)\n" //
+            + "\t\t13 -- L2-regularized L1-loss support vector regression (dual)", //
             "S", 1, "-S <int>"));
 
         result.addElement(new Option("\tSet the cost parameter C\n" + "\t (default: 1)", "C", 1, "-C <double>"));
 
         result.addElement(new Option("\tTurn on normalization of input data (default: off)", "Z", 0, "-Z"));
 
-        result.addElement(new Option("\tTurn on nominal to binary conversion.", "N", 0, "-N"));
-
-        result.addElement(new Option("\tTurn off missing value replacement." + "\n\tWARNING: use only if your data has no missing " + "values.", "M", 0, "-M"));
-
         result.addElement(new Option("\tUse probability estimation (default: off)\n"
             + "currently for L2-regularized logistic regression, L1-regularized logistic regression or L2-regularized logistic regression (dual)! ", "P", 0,
             "-P"));
 
-        result.addElement(new Option("\tSet tolerance of termination criterion (default: 0.01)", "E", 1, "-E <double>"));
+        result.addElement(new Option("\tSet tolerance of termination criterion (default: 0.001)", "E", 1, "-E <double>"));
 
         result.addElement(new Option("\tSet the parameters C of class i to weight[i]*C\n" + "\t (default: 1)", "W", 1, "-W <double>"));
 
         result.addElement(new Option("\tAdd Bias term with the given value if >= 0; if < 0, no bias term added (default: 1)", "B", 1, "-B <double>"));
+
+        result.addElement(new Option(
+                "\tThe epsilon parameter in epsilon-insensitive loss function.\n"
+                        + "\t(default 0.1)", "L", 1, "-L <double>"));
+
+        result.addElement(new Option(
+                "\tThe maximum number of iterations to perform.\n"
+                        + "\t(default 1000)", "I", 1, "-I <int>"));
 
         Enumeration en = super.listOptions();
         while (en.hasMoreElements())
@@ -271,14 +316,19 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      *
      * <pre> -S &lt;int&gt;
      *  Set type of solver (default: 1)
-     *    0 = L2-regularized logistic regression
-     *    1 = L2-loss support vector machines (dual)
-     *    2 = L2-loss support vector machines (primal)
-     *    3 = L1-loss support vector machines (dual)
-     *    4 = multi-class support vector machines by Crammer and Singer
-     *    5 = L1-regularized L2-loss support vector classification
-     *    6 = L1-regularized logistic regression
-     *    7 = L2-regularized logistic regression (dual)</pre>
+     *   for multi-class classification
+     *     0 -- L2-regularized logistic regression (primal)
+     *     1 -- L2-regularized L2-loss support vector classification (dual)
+     *     2 -- L2-regularized L2-loss support vector classification (primal)
+     *     3 -- L2-regularized L1-loss support vector classification (dual)
+     *     4 -- support vector classification by Crammer and Singer
+     *     5 -- L1-regularized L2-loss support vector classification
+     *     6 -- L1-regularized logistic regression
+     *     7 -- L2-regularized logistic regression (dual)
+     *  for regression
+     *    11 -- L2-regularized L2-loss support vector regression (primal)
+     *    12 -- L2-regularized L2-loss support vector regression (dual)
+     *    13 -- L2-regularized L1-loss support vector regression (dual)</pre>
      *
      * <pre> -C &lt;double&gt;
      *  Set the cost parameter C
@@ -287,19 +337,24 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      * <pre> -Z
      *  Turn on normalization of input data (default: off)</pre>
      *
-     * <pre> -N
-     *  Turn on nominal to binary conversion.</pre>
+     * <pre>
+     * -L &lt;double&gt;
+     *  The epsilon parameter in epsilon-insensitive loss function.
+     *  (default 0.1)
+     * </pre>
      *
-     * <pre> -M
-     *  Turn off missing value replacement.
-     *  WARNING: use only if your data has no missing values.</pre>
+     * <pre>
+     * -I &lt;int&gt;
+     *  The maximum number of iterations to perform.
+     *  (default 0.1)
+     * </pre>
      *
      * <pre> -P
      *  Use probability estimation (default: off)
      * currently for L2-regularized logistic regression only! </pre>
      *
      * <pre> -E &lt;double&gt;
-     *  Set tolerance of termination criterion (default: 0.01)</pre>
+     *  Set tolerance of termination criterion (default: 0.001)</pre>
      *
      * <pre> -W &lt;double&gt;
      *  Set the parameters C of class i to weight[i]*C
@@ -317,15 +372,14 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      * @param options     the options to parse
      * @throws Exception  if parsing fails
      */
-    @Override
-	public void setOptions(String[] options) throws Exception {
+    public void setOptions(String[] options) throws Exception {
         String tmpStr;
 
         tmpStr = Utils.getOption('S', options);
         if (tmpStr.length() != 0)
             setSVMType(new SelectedTag(Integer.parseInt(tmpStr), TAGS_SVMTYPE));
         else
-            setSVMType(new SelectedTag(DEFAULT_SOLVER.ordinal(), TAGS_SVMTYPE));
+            setSVMType(new SelectedTag(DEFAULT_SOLVER.getId(), TAGS_SVMTYPE));
 
         tmpStr = Utils.getOption('C', options);
         if (tmpStr.length() != 0)
@@ -337,12 +391,9 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
         if (tmpStr.length() != 0)
             setEps(Double.parseDouble(tmpStr));
         else
-            setEps(1e-3);
+            setEps(0.001);
 
         setNormalize(Utils.getFlag('Z', options));
-
-        setConvertNominalToBinary(Utils.getFlag('N', options));
-        setDoNotReplaceMissingValues(Utils.getFlag('M', options));
 
         tmpStr = Utils.getOption('B', options);
         if (tmpStr.length() != 0)
@@ -354,6 +405,20 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
 
         setProbabilityEstimates(Utils.getFlag('P', options));
 
+        tmpStr = Utils.getOption('L', options);
+        if (tmpStr.length() != 0) {
+            setEpsilonParameter(Double.parseDouble(tmpStr));
+        } else {
+            setEpsilonParameter(0.1);
+        }
+
+        tmpStr = Utils.getOption('I', options);
+        if (tmpStr.length() != 0) {
+            setMaximumNumberOfIterations(Integer.parseInt(tmpStr));
+        } else {
+            setMaximumNumberOfIterations(1000);
+        }
+
         super.setOptions(options);
     }
 
@@ -362,13 +427,12 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      *
      * @return            the current setup
      */
-    @Override
-	public String[] getOptions() {
+    public String[] getOptions() {
 
         List<String> options = new ArrayList<String>();
 
         options.add("-S");
-        options.add("" + m_SolverType.ordinal());
+        options.add("" + m_SolverType.getId());
 
         options.add("-C");
         options.add("" + getCost());
@@ -381,16 +445,18 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
 
         if (getNormalize()) options.add("-Z");
 
-        if (getConvertNominalToBinary()) options.add("-N");
-
-        if (getDoNotReplaceMissingValues()) options.add("-M");
-
         if (getWeights().length() != 0) {
             options.add("-W");
             options.add("" + getWeights());
         }
 
         if (getProbabilityEstimates()) options.add("-P");
+
+        options.add("-L");
+        options.add("" + getEpsilonParameter());
+
+        options.add("-I");
+        options.add("" + getMaximumNumberOfIterations());
 
         return options.toArray(new String[options.size()]);
     }
@@ -402,7 +468,7 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      */
     public void setSVMType(SelectedTag value) {
         if (value.getTags() == TAGS_SVMTYPE) {
-            setSolverType(SolverType.values()[value.getSelectedTag().getID()]);
+            setSolverType(SolverType.getById(value.getSelectedTag().getID()));
         }
     }
 
@@ -420,7 +486,7 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      * @return            the type of the SVM
      */
     public SelectedTag getSVMType() {
-        return new SelectedTag(m_SolverType.ordinal(), TAGS_SVMTYPE);
+        return new SelectedTag(m_SolverType.getId(), TAGS_SVMTYPE);
     }
 
     /**
@@ -431,6 +497,64 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      */
     public String SVMTypeTipText() {
         return "The type of SVM to use.";
+    }
+
+    /**
+     * Get the value of epsilon parameter of the epsilon insensitive loss
+     * function.
+     *
+     * @return Value of epsilon parameter.
+     */
+    public double getEpsilonParameter() {
+        return m_epsilon;
+    }
+
+    /**
+     * Set the value of epsilon parameter of the epsilon insensitive loss
+     * function.
+     *
+     * @param v Value to assign to epsilon parameter.
+     */
+    public void setEpsilonParameter(double v) {
+        m_epsilon = v;
+    }
+
+    /**
+     * Returns the tip text for this property
+     *
+     * @return tip text for this property suitable for displaying in the
+     *         explorer/experimenter gui
+     */
+    public String epsilonParameterTipText() {
+        return "The epsilon parameter of the epsilon insensitive loss function.";
+    }
+
+    /**
+     * Get the number of iterations to perform.
+     *
+     * @return maximum number of iterations to perform.
+     */
+    public int getMaximumNumberOfIterations() {
+        return m_MaxIts;
+    }
+
+    /**
+     * Set the number of iterations to perform.
+     *
+     * @param v the number of iterations to perform.
+     */
+    public void setMaximumNumberOfIterations(int v) {
+        m_MaxIts = v;
+    }
+
+    /**
+     * Returns the tip text for this property
+     *
+     * @return tip text for this property suitable for displaying in the
+     *         explorer/experimenter gui
+     */
+    public String maximumNumberOfIterationsTipText() {
+        return "The maximum number of iterations to perform.";
     }
 
     /**
@@ -548,70 +672,6 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
     }
 
     /**
-     * Returns the tip text for this property
-     *
-     * @return tip text for this property suitable for
-     *         displaying in the explorer/experimenter gui
-     */
-    public String convertNominalToBinaryTipText() {
-        return "Whether to turn on conversion of nominal attributes " + "to binary.";
-    }
-
-    /**
-     * Whether to turn on conversion of nominal attributes
-     * to binary.
-     *
-     * @param b true if nominal to binary conversion is to be
-     * turned on
-     */
-    public void setConvertNominalToBinary(boolean b) {
-        m_nominalToBinary = b;
-    }
-
-    /**
-     * Gets whether conversion of nominal to binary is
-     * turned on.
-     *
-     * @return true if nominal to binary conversion is turned
-     * on.
-     */
-    public boolean getConvertNominalToBinary() {
-        return m_nominalToBinary;
-    }
-
-    /**
-     * Returns the tip text for this property
-     *
-     * @return tip text for this property suitable for
-     *         displaying in the explorer/experimenter gui
-     */
-    public String doNotReplaceMissingValuesTipText() {
-        return "Whether to turn off automatic replacement of missing " + "values. WARNING: set to true only if the data does not " + "contain missing values.";
-    }
-
-    /**
-     * Whether to turn off automatic replacement of missing values.
-     * Set to true only if the data does not contain missing values.
-     *
-     * @param b true if automatic missing values replacement is
-     * to be disabled.
-     */
-    public void setDoNotReplaceMissingValues(boolean b) {
-        m_noReplaceMissingValues = b;
-    }
-
-    /**
-     * Gets whether automatic replacement of missing values is
-     * disabled.
-     *
-     * @return true if automatic replacement of missing values
-     * is disabled.
-     */
-    public boolean getDoNotReplaceMissingValues() {
-        return m_noReplaceMissingValues;
-    }
-
-    /**
      * Sets the parameters C of class i to weight[i]*C (default 1).
      * Blank separated list of doubles.
      *
@@ -695,7 +755,7 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      */
     protected Parameter getParameters() {
 
-        Parameter parameter = new Parameter(m_SolverType, m_Cost, m_eps);
+        Parameter parameter = new Parameter(m_SolverType, m_Cost, m_eps, m_MaxIts, m_epsilon);
 
         if (m_Weight.length > 0) {
             parameter.setWeights(m_Weight, m_WeightLabel);
@@ -712,7 +772,7 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      * @param max_index
      * @return the Problem object
      */
-    protected Problem getProblem(FeatureNode[][] vx, int[] vy, int max_index) {
+    protected Problem getProblem(FeatureNode[][] vx, double[] vy, int max_index) {
 
         if (vx.length != vy.length) throw new IllegalArgumentException("vx and vy must have same size");
 
@@ -777,20 +837,15 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      * @return 			the distribution
      * @throws Exception 		if the distribution can't be computed successfully
      */
-    @Override
-	public double[] distributionForInstance(Instance instance) throws Exception {
+    public double[] distributionForInstance(Instance instance) throws Exception {
 
-        if (!getDoNotReplaceMissingValues()) {
-            m_ReplaceMissingValues.input(instance);
-            m_ReplaceMissingValues.batchFinished();
-            instance = m_ReplaceMissingValues.output();
-        }
+        m_ReplaceMissingValues.input(instance);
+        m_ReplaceMissingValues.batchFinished();
+        instance = m_ReplaceMissingValues.output();
 
-        if (getConvertNominalToBinary() && m_NominalToBinary != null) {
-            m_NominalToBinary.input(instance);
-            m_NominalToBinary.batchFinished();
-            instance = m_NominalToBinary.output();
-        }
+        m_NominalToBinary.input(instance);
+        m_NominalToBinary.batchFinished();
+        instance = m_NominalToBinary.output();
 
         if (m_Filter != null) {
             m_Filter.input(instance);
@@ -800,7 +855,7 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
 
         FeatureNode[] x = instanceToArray(instance);
         double[] result = new double[instance.numClasses()];
-        if (m_ProbabilityEstimates) {
+        if (instance.classAttribute().isNominal() && (m_ProbabilityEstimates)) {
             if (m_SolverType != SolverType.L2R_LR && m_SolverType != SolverType.L2R_LR_DUAL && m_SolverType != SolverType.L1R_LR) {
                 throw new WekaException("probability estimation is currently only " + "supported for L2-regularized logistic regression");
             }
@@ -815,9 +870,13 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
                 result[labels[k]] = prob_estimates[k];
             }
         } else {
-            int prediction = Linear.predict(m_Model, x);
-            assert (instance.classAttribute().isNominal());
-            result[prediction] = 1;
+            double prediction = Linear.predict(m_Model, x);
+            if (instance.classAttribute().isNominal()) {
+                result[(int) prediction] = 1;
+            } else {
+                result[0] = prediction * m_x1 + m_x0;
+                ;
+            }
         }
 
         return result;
@@ -828,8 +887,7 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      *
      * @return      the capabilities of this classifier
      */
-    @Override
-	public Capabilities getCapabilities() {
+    public Capabilities getCapabilities() {
         Capabilities result = super.getCapabilities();
         result.disableAll();
 
@@ -837,10 +895,20 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
         result.enable(Capability.NOMINAL_ATTRIBUTES);
         result.enable(Capability.NUMERIC_ATTRIBUTES);
         result.enable(Capability.DATE_ATTRIBUTES);
-        //    result.enable(Capability.MISSING_VALUES);
+	result.enable(Capability.MISSING_VALUES);
+
+	// class
+	result.enableDependency(Capability.NOMINAL_CLASS);
+	result.enableDependency(Capability.NUMERIC_CLASS);
 
         // class
-        result.enable(Capability.NOMINAL_CLASS);
+	if (m_SolverType.ordinal() >= 0 && m_SolverType.ordinal() <= 7) {
+	    result.enable(Capability.NOMINAL_CLASS);
+	} else if (m_SolverType.ordinal() >= 8 && m_SolverType.ordinal() <= 10) {
+	    result.enable(Capability.NUMERIC_CLASS);
+	} else {
+	    throw new IllegalArgumentException("Solver " + m_SolverType + " is not supported!");
+	}
         result.enable(Capability.MISSING_CLASS_VALUES);
         return result;
     }
@@ -852,38 +920,62 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      * @throws Exception  if liblinear classes not in classpath or liblinear
      *                    encountered a problem
      */
-    @Override
-	public void buildClassifier(Instances insts) throws Exception {
+    public void buildClassifier(Instances insts) throws Exception {
         m_NominalToBinary = null;
         m_Filter = null;
+
+        getCapabilities().testWithFail(insts);
 
         // remove instances with missing class
         insts = new Instances(insts);
         insts.deleteWithMissingClass();
 
-        if (!getDoNotReplaceMissingValues()) {
-            m_ReplaceMissingValues = new ReplaceMissingValues();
-            m_ReplaceMissingValues.setInputFormat(insts);
-            insts = Filter.useFilter(insts, m_ReplaceMissingValues);
-        }
+	      m_ReplaceMissingValues = new ReplaceMissingValues();
+	      m_ReplaceMissingValues.setInputFormat(insts);
+	      insts = Filter.useFilter(insts, m_ReplaceMissingValues);
 
-        // can classifier handle the data?
-        // we check this here so that if the user turns off
-        // replace missing values filtering, it will fail
-        // if the data actually does have missing values
-        getCapabilities().testWithFail(insts);
+        m_NominalToBinary = new NominalToBinary();
+	      m_NominalToBinary.setInputFormat(insts);
+	      insts = Filter.useFilter(insts, m_NominalToBinary);
+        // retrieve two different class values used to determine filter transformation
 
-        if (getConvertNominalToBinary()) {
-            insts = nominalToBinary(insts);
+        double y0 = insts.instance(0).classValue();
+        int index = 1;
+        while (index < insts.numInstances() && insts.instance(index).classValue() == y0) {
+            index++;
         }
+        if (index == insts.numInstances()) {
+            // degenerate case, all class values are equal
+            // we don't want to deal with this, too much hassle
+            throw new Exception("All class values are the same. At least two class values should be different");
+        }
+        double y1 = insts.instance(index).classValue();
 
         if (getNormalize()) {
             m_Filter = new Normalize();
+            ((Normalize)m_Filter).setIgnoreClass(true); // Normalize class as well
             m_Filter.setInputFormat(insts);
             insts = Filter.useFilter(insts, m_Filter);
         }
 
-        int[] vy = new int[insts.numInstances()];
+        if (m_Filter != null) {
+            double z0 = insts.instance(0).classValue();
+            double z1 = insts.instance(index).classValue();
+            m_x1 = (y0-y1) / (z0 - z1); // no division by zero, since y0 != y1 guaranteed => z0 != z1 ???
+            m_x0 = (y0 - m_x1 * z0); // = y1 - m_x1 * z1
+        } else {
+            m_x1 = 1.0;
+            m_x0 = 0.0;
+        }
+        // Find out which classes are empty (needed for output of model)
+        if (insts.classAttribute().isNominal()) {
+            m_Counts = new double[insts.numClasses()];
+            for (Instance inst : insts) {
+                m_Counts[(int) inst.classValue()]++;
+            }
+        }
+
+        double[] vy = new double[insts.numInstances()];
         FeatureNode[][] vx = new FeatureNode[insts.numInstances()][];
         int max_index = 0;
 
@@ -895,9 +987,9 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
             }
             vx[d] = x;
             double classValue = inst.classValue();
-            int classValueInt = (int)classValue;
-            if (classValueInt != classValue) throw new RuntimeException("unsupported class value: " + classValue);
-            vy[d] = classValueInt;
+	          // int classValueInt = (int)classValue;
+            // if (classValueInt != classValue) throw new RuntimeException("unsupported class value: " + classValue);
+            vy[d] = classValue;
         }
 
         if (!m_Debug) {
@@ -911,31 +1003,9 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
 
         // train model
         m_Model = Linear.train(getProblem(vx, vy, max_index), getParameters());
-    }
 
-
-    private boolean isOnlyNumeric(Instances insts) {
-        for (int i = 0; i < insts.numAttributes(); i++) {
-            if (i != insts.classIndex()) {
-                if (!insts.attribute(i).isNumeric()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * turns on nominal to binary filtering
-     * if there are not only numeric attributes
-     */
-    private Instances nominalToBinary(Instances insts) throws Exception {
-        if (!isOnlyNumeric(insts)) {
-            m_NominalToBinary = new NominalToBinary();
-            m_NominalToBinary.setInputFormat(insts);
-            insts = Filter.useFilter(insts, m_NominalToBinary);
-        }
-        return insts;
+        // Store header of instances for output
+        m_Header = new Instances(insts, 0);
     }
 
     /**
@@ -943,9 +1013,81 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      *
      * @return a string representation
      */
-    @Override
-	public String toString() {
-        return "LibLINEAR wrapper";
+    public String toString() {
+
+        if (getModel() == null) {
+            return "LibLINEAR: No model built yet.";
+        }
+        StringBuffer sb = new StringBuffer();
+        double[] w = getModel().getFeatureWeights();
+        sb.append("LibLINEAR wrapper" + "\n\n" + getModel() + "\n\n");
+
+        if (m_Header.classAttribute().isNominal()) {
+            int numNonEmptyClasses = 0;
+            for (int i = 0; i < m_Counts.length; i++) {
+                if (m_Counts[i] > 0) {
+                    numNonEmptyClasses++;
+                }
+            }
+            int start = 0;
+            for (int i = 0; i < ((m_Header.numClasses() == 2) ? 1 : m_Header.numClasses()); i++) {
+                if (m_Counts[(m_Header.numClasses() == 2) ? 1 : i] > 0) {
+                    sb.append("Model for class " +
+                            ((m_Header.numClasses() == 2) ? m_Header.classAttribute().value(1)
+                                    : m_Header.classAttribute().value(i)) + "\n\n");
+                    int index = start++;
+                    for (int j = 0; j < m_Header.numAttributes(); j++) {
+                        if (j != m_Header.classIndex()) {
+                            if (w[index] >= 0) {
+                                sb.append((j > 0) ? "+" : " ");
+                            } else {
+                                sb.append("-");
+                            }
+                            sb.append(Utils.doubleToString(Math.abs(w[index]), 12, getNumDecimalPlaces()) + " * " +
+                                    (getNormalize() ? "(normalized) " : "") + m_Header.attribute(j).name() + "\n");
+                        }
+                        index += ((m_Header.numClasses() == 2) ? 1 : numNonEmptyClasses);
+                    }
+                    if (m_Bias >= 0) {
+                        if (w[index] >= 0) {
+                            sb.append("+");
+                        }else {
+                            sb.append("-");
+                        }
+                        sb.append(Utils.doubleToString(Math.abs(w[index]), 12, getNumDecimalPlaces()) + " * " + getModel().getBias() +
+                                "\n\n");
+                    }
+                }
+            }
+        } else { // Numeric class
+            if (getNormalize()) {
+                sb.append("NOTE: CLASS HAS ALSO BEEN NORMALIZED.\n\n");
+            }
+            int index = 0;
+            for (int j = 0; j < m_Header.numAttributes(); j++) {
+                if (j != m_Header.classIndex()) {
+                    if (w[index] >= 0) {
+                        sb.append((j > 0) ? "+" : " ");
+                    } else {
+                        sb.append("-");
+                    }
+                    sb.append(Utils.doubleToString(Math.abs(w[index]), 12, getNumDecimalPlaces()) + " * " +
+                            (getNormalize() ? "(normalized) " : "") + m_Header.attribute(j).name() + "\n");
+                }
+                index++;
+            }
+            if (m_Bias >= 0) {
+                if (w[index] >= 0) {
+                    sb.append("+");
+                } else {
+                    sb.append("-");
+                }
+                sb.append(Utils.doubleToString(Math.abs(w[index]), 12, getNumDecimalPlaces()) + " * " + getModel().getBias() +
+                        "\n\n");
+            }
+        }
+
+        return sb.toString();
     }
 
     /**
@@ -953,8 +1095,7 @@ public class LibLINEAR extends AbstractClassifier implements TechnicalInformatio
      *
      * @return the revision
      */
-    @Override
-	public String getRevision() {
+    public String getRevision() {
         return REVISION;
     }
 

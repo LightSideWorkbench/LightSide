@@ -1,19 +1,13 @@
-2013-09-26 11:16:30 weka.gui.explorer.Explorer main
+2018-10-17 09:46:38 weka.gui.GUIChooserApp main
 INFO: Logging started
-URL file:/Users/lightsidelabs/Documents/workspace/lightside/wekafiles/packages/bayesianLogisticRegression/bayesianLogisticRegression.jar is already in the CLASSPATH
-URL file:/Users/lightsidelabs/Documents/workspace/lightside/wekafiles/packages/chiSquaredAttributeEval/chiSquaredAttributeEval.jar is already in the CLASSPATH
-URL file:/Users/lightsidelabs/Documents/workspace/lightside/wekafiles/packages/LibLINEAR/lib/liblinear-1.8.jar is already in the CLASSPATH
-URL file:/Users/lightsidelabs/Documents/workspace/lightside/wekafiles/packages/LibLINEAR/LibLINEAR.jar is already in the CLASSPATH
-URL file:/Users/lightsidelabs/Documents/workspace/lightside/wekafiles/packages/LibSVM/lib/libsvm.jar is already in the CLASSPATH
-URL file:/Users/lightsidelabs/Documents/workspace/lightside/wekafiles/packages/LibSVM/LibSVM.jar is already in the CLASSPATH
-Refreshing GOE props...
-[KnowledgeFlow] Loading properties and plugins...
-[KnowledgeFlow] Initializing KF...
-2013-09-26 11:16:31 weka.gui.explorer.Explorer <init>
-INFO: Weka Explorer
-2013-09-26 11:16:31 weka.gui.explorer.Explorer <init>
-INFO: (c) 1999-2011 The University of Waikato, Hamilton, New Zealand
-2013-09-26 11:16:31 weka.gui.explorer.Explorer <init>
-INFO: web: http://www.cs.waikato.ac.nz/~ml/weka/
-2013-09-26 11:16:31 weka.gui.explorer.Explorer <init>
-INFO: Started on Thursday, 26 September 2013
+2018-10-17 09:46:39 INFO: [WekaPackageManager] Package manager using repository mirror: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+2018-10-17 09:46:39 WARNING: [WekaPackageManager] The repository meta data mirror file seems to be unavailable (no protocol: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">)
+2018-10-17 09:46:40 weka.gui.GenericObjectEditor registerEditors
+INFO: ---Registering Weka Editors---
+2018-10-17 09:46:40 weka.experiment.DatabaseUtils initialize
+WARNING: Trying to add database driver (JDBC): jdbc.idbDriver - Warning, not in CLASSPATH?
+2018-10-17 09:46:40 weka.gui.beans.BeansProperties loadProperties
+INFO: [KnowledgeFlow] Loading properties and plugins...
+2018-10-17 09:46:40 weka.gui.beans.KnowledgeFlowApp init
+INFO: [KnowledgeFlow] Initializing KF...
+Checking for new packages...

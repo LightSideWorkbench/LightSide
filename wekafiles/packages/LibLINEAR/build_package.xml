@@ -1,9 +1,11 @@
 <project name="weka-package" default="compile" basedir=".">
-<!--
+<!-- 
   ===========================================================================
-   Ant build file for weka a weka package.
+   Ant build file for weka a weka package. 
 
    Type ant -projecthelp for targets and descriptions.
+
+   $Revision: 6663 $
   ===========================================================================
 -->
 
@@ -34,7 +36,7 @@
     <pathelement path="${java.class.path}" />
   </path>
 
-<!--
+<!-- 
  ============================================================================
  Compilation and documentation making stuff
  ============================================================================
@@ -46,9 +48,9 @@
   </target>
 
   <!-- Compile the java code from ${src}/weka into ${build}/classes -->
-  <target name="compile" depends="init_compile"
+  <target name="compile" depends="init_compile" 
    description="Compile package and deposit class files in build/classes">
-    <javac srcdir="${src}"
+    <javac srcdir="${src}" 
       fork="yes" memoryMaximumSize="${javac_max_memory}"
       destdir="${build}/classes"
       optimize="${optimization}"
@@ -56,7 +58,7 @@
       deprecation="${deprecation}"
       source="1.6" target="1.6">
 
-      <classpath refid="project.class.path" />
+      <classpath refid="project.class.path" /> 
     </javac>
     <copy todir="${build}/classes" >
        <fileset dir="${src}">
@@ -77,18 +79,18 @@
   </target>
 
   <!-- Make the javadocs -->
-  <target name="docs"
-          depends="init_all"
+  <target name="docs" 
+          depends="init_all" 
           description="Make javadocs into ./doc">
     <mkdir dir="${doc}"/>
-    <javadoc sourcepath="${src}"
+    <javadoc sourcepath="${src}" 
              classpathref="project.class.path"
-             destdir="${doc}"
-             Author="yes"
+             destdir="${doc}" 
+             Author="yes" 
              Public="yes"
              link="http://weka.sourceforge.net/doc.dev/"
-             maxmemory="256m"/>
-  </target>
+             maxmemory="256m"/>          
+  </target> 
 
 
 <!--
@@ -101,22 +103,22 @@
     <available property="junit.present" classname="junit.framework.TestCase"/>
     <!-- Create the build directory structure used by compile -->
     <mkdir dir="${build}/testcases"/>
-    <!-- make this if it doesn't exist so that the compile_test task doesn't fail for
+    <!-- make this if it doesn't exist so that the compile_test task doesn't faile for 
          stuff that doesn't have test cases -->
     <mkdir dir="${src-test}"/>
   </target>
 
   <!-- compile the testcases -->
-  <target name="compile_tests" depends="init_tests, compile"
+  <target name="compile_tests" depends="init_tests, compile" 
    description="Compile unit tests into build/testcases">
-     <javac srcdir="${src-test}"
+     <javac srcdir="${src-test}" 
        fork="yes" memoryMaximumSize="${javac_max_memory}"
             destdir="${build}/testcases"
             optimize="${optimization}"
             debug="${debug}"
             deprecation="${deprecation}"
             source="1.6" target="1.6">
-       <classpath refid="project.class.path" />
+       <classpath refid="project.class.path" /> 
      </javac>
      <copy todir="${build}/testcases" >
        <fileset dir="${src-test}">
@@ -131,7 +133,7 @@
   <!-- Put everything in ${build}/testcases into the ${package}-tests.jar file -->
   <target name="jar_tests" depends="compile_tests, init_dist"
    description="Creates a jar file with the test cases in ./dist. Run with -Dpackage=[package name]">
-    <jar jarfile="${dist}/${package}-tests.jar"
+    <jar jarfile="${dist}/${package}-tests.jar" 
       basedir="${build}/testcases">
     </jar>
   </target>
@@ -150,7 +152,7 @@
   <!-- Put everything in ${build}/classes into the ${package}.jar file -->
   <target name="exejar" depends="compile, docs, init_dist"
    description="Create a binary jar file in ./dist">
-    <jar jarfile="${dist}/${package}.jar"
+    <jar jarfile="${dist}/${package}.jar" 
       basedir="${build}/classes">
     </jar>
   </target>
@@ -204,16 +206,16 @@
          <include name="src/**/*.matrix"/>
        </fileset>
     </copy>
-		<zip destfile="${dist}/${package}-${version}.zip"
+    <zip destfile="${dist}/${package}.zip" 
       basedir="${dist}/${package}">
     </zip>
   </target>
 
   <!-- Put all .java, and .props files into ${dist}/${package}-src.jar-->
   <target name="srcjar" depends="init_dist, init_all"
-   description="Create a jar file containing weka source in ./dist. Run with -Dpackage=[package name]">
+   description="Create a jar file containing weka source in ./dist. Run with -Dpackage=[package name]">  
     <!-- jar up the source -->
-    <jar jarfile="${dist}/${package}-src.jar"
+    <jar jarfile="${dist}/${package}-src.jar" 
       basedir=".">
       <include name="*.xml"/>
       <include name="src/**/*.excludes"/>

@@ -7,6 +7,7 @@ public enum TokenizingToolLanguage
 	FRENCH(FrenchTokenizingTool.class), 
 	//ARABIC(ArabicTokenizingTool.class), 
 	CHINESE(ChineseTokenizingTool.class);
+	//JAPANESE(JapaneseTokenizingTool.class);
 
 	private AbstractTokenizingTool tool;
 	private TokenizingToolLanguage(Class<? extends AbstractTokenizingTool> clazz)

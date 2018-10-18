@@ -1,17 +1,16 @@
 /*
- *    This program is free software; you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation; either version 2 of the License, or
- *    (at your option) any later version.
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
  *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
  *
- *    You should have received a copy of the GNU General Public License
- *    along with this program; if not, write to the Free Software
- *    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*
@@ -33,7 +32,7 @@ import java.io.Serializable;
  * This is an interface to plug various priors into
  * the Bayesian Logistic Regression Model.
  *
- * @version $Revision: 1.2 $
+ * @version $Revision: 12680 $
  * @author Navendu Garg (gargnav@iit.edu)
  */
 public abstract class Prior
@@ -48,6 +47,14 @@ public abstract class Prior
   protected double log_posterior = 0.0;
   protected double log_likelihood = 0.0;
   protected double penalty = 0.0;
+
+  /**
+   * Sets the reference to the Instances object to null to conserve memory.
+   */
+  public void clean() {
+    m_Instances = null;
+    R = null;
+  }
 
   /**
    * Interface for the update functions for different types of
