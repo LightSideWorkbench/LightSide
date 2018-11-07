@@ -3,8 +3,8 @@
     <property environment="env"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.9"/>
-    <property name="source" value="1.9"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
     <property name="lightside.location" value="."/>
     <!--<property name="ECLIPSE_HOME" value="/Applications/eclipse"/>-->
 	<!-- ECLIPSE_HOME is only used to reference where the junit JARs live - if your JUnit is elsewhere, you don't need this variable. -->
@@ -59,15 +59,15 @@
 	
     <target name="get-stanford-chinese">
         <copy file="plugins/config-intl.xml" tofile="plugins/config.xml" overwrite="true"/>
-        <get src="https://nlp.stanford.edu/software/stanford-segmenter-2018-02-27.zip"
+        <get src="https://nlp.stanford.edu/software/stanford-segmenter-2018-10-16.zip"
              skipexisting="true" dest = "." />
-        <unzip src="stanford-segmenter-2018-02-27.zip" dest="." />
+        <unzip src="stanford-segmenter-2018-10-16.zip" dest="." />
         <move todir="lib">
-           <fileset dir="stanford-segmenter-2018-02-27">
+           <fileset dir="stanford-segmenter-2018-10-16">
              <include name="stanford-segmenter*.jar"/>
            </fileset>
         </move>
-        <move file="stanford-segmenter-2018-02-27/data" tofile="toolkits/segmentation"/>
+        <move file="stanford-segmenter-2018-10-16/data" tofile="toolkits/segmentation"/>
     </target>
 
     <target depends="init" name="compile-lightside">
