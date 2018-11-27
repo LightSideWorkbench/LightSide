@@ -3,8 +3,8 @@ package edu.cmu.side.util;
 public enum TokenizingToolLanguage
 {
 	ENGLISH(EnglishTokenizingTool.class), 
-	GERMAN(GermanTokenizingTool.class), 
-	FRENCH(FrenchTokenizingTool.class), 
+	//GERMAN(GermanTokenizingTool.class), 
+	//FRENCH(FrenchTokenizingTool.class), 
 	//ARABIC(ArabicTokenizingTool.class), 
 	CHINESE(ChineseTokenizingTool.class);
 	//JAPANESE(JapaneseTokenizingTool.class);
