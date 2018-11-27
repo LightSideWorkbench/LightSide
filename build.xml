@@ -3,8 +3,8 @@
     <property environment="env"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.6"/>
-    <property name="source" value="1.6"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
     <property name="lightside.location" value="."/>
     <!--<property name="ECLIPSE_HOME" value="/Applications/eclipse"/>-->
 	<!-- ECLIPSE_HOME is only used to reference where the junit JARs live - if your JUnit is elsewhere, you don't need this variable. -->
@@ -49,10 +49,27 @@
     <target depends="clean" name="cleanall"/>
 	
 
+	<target name="build-intl" depends="clean,compile-intl,test"/>
 	<target name="build" depends="clean,compile,test"/>
 
-	<target name="compile" depends="compile-lightside,compile-tests"/>
+	<target name="compile-intl" depends="get-stanford-chinese,compile-lightside,compile-tests"/>
+	<target name="compile" depends="compile-lightside,compile-tests">
+            <copy file="plugins/config-english.xml" tofile="plugins/config.xml" overwrite="true"/>
+        </target>
 	
+    <target name="get-stanford-chinese">
+        <copy file="plugins/config-intl.xml" tofile="plugins/config.xml" overwrite="true"/>
+        <get src="https://nlp.stanford.edu/software/stanford-segmenter-2018-10-16.zip"
+             skipexisting="true" dest = "." />
+        <unzip src="stanford-segmenter-2018-10-16.zip" dest="." />
+        <move todir="lib">
+           <fileset dir="stanford-segmenter-2018-10-16">
+             <include name="stanford-segmenter*.jar"/>
+           </fileset>
+        </move>
+        <move file="stanford-segmenter-2018-10-16/data" tofile="toolkits/segmentation"/>
+    </target>
+
     <target depends="init" name="compile-lightside">
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
@@ -60,6 +77,16 @@
         	
             <classpath refid="lightside.buildpath"/>
         </javac>
+    </target>
+
+    <target depends="compile-lightside" name="lightside-jar">
+       <jar destfile="${lightside.location}/lightside.jar" basedir="bin">
+            <manifest>
+                <attribute name="Built-By" value="${builder}" />
+                <attribute name="Built-On" value="${build-info.current-date}" />
+                <attribute name="Built-At" value="${build-info.current-time}" />
+            </manifest>
+       </jar>
     </target>
 	
     <target depends="init" name="compile-tests">
@@ -73,7 +100,7 @@
 	
     <target depends="compile" name="run">
         <java classname="edu.cmu.side.Workbench" failonerror="true" fork="yes">
-            <jvmarg line="-Xmx8G -Xdock:icon=toolkits/icons/bulbs/bulb_128.png -Xdock:name=LightSide -splash:toolkits/icons/logo.png -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode"/>
+            <jvmarg line="-Xmx8G -Xdock:icon=toolkits/icons/bulbs/bulb_128.png -Xdock:name=LightSide -splash:toolkits/icons/logo.png -XX:+UseConcMarkSweepGC" />
             <classpath refid="lightside.classpath"/>
         </java>
     </target>
@@ -84,8 +111,9 @@
     <target name="run-tests">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="true" haltonerror="true" haltonfailure="true" showoutput="true" dir="${lightside.location}">
-            <formatter type="xml"/>
+           <!-- <formatter type="xml"/> -->
         	
+            <formatter type="plain" usefile="false"/>
             <classpath refid="lightside.testpath"/>
 
         	<batchtest fork="yes" todir="${junit.output.dir}">
@@ -95,7 +123,7 @@
         	    </fileset>
         	  </batchtest>
         	    	
-            <jvmarg line="-Xmx4G -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -Djava.awt.headless=true"/>
+            <jvmarg line="-Xmx4G -XX:+UseConcMarkSweepGC  -Djava.awt.headless=true"/>
 
 
         </junit>

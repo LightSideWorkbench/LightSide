@@ -4,10 +4,10 @@
 PackageName=TPP
 
 # Current version number is set by ant build
-Version=1.0.5
+Version=1.0.6
 
 # Date is is set by ant build
-Date=August 30 2011
+Date=January 25 2013
 
 # Title (required)
 Title=Targeted Projection Pursuit
@@ -34,7 +34,7 @@ Description=This package allows the user to explore their data, and select attri
 </ul>\
 
 # Package URL for obtaining the package archive (required)
-PackageURL=http://targeted-projection-pursuit.googlecode.com/files/TPP-1.0.5.zip
+PackageURL=https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/targeted-projection-pursuit/TPP-1.0.6.zip
 
 # URL for further information
 URL=http://code.google.com/p/targeted-projection-pursuit/

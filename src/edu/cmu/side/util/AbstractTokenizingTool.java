@@ -23,8 +23,9 @@ public abstract class AbstractTokenizingTool
 {
 	private MaxentTagger tagger;
 	private TokenizerFactory<CoreLabel> factory;
-
-	protected abstract TokenizerFactory<CoreLabel> createTokenizerFactory();
+	protected static final String stopwordsFilename = "toolkits/english.stp";
+	protected static final String punctuationFilename = "toolkits/punctuation.stp";
+	public abstract TokenizerFactory<CoreLabel> createTokenizerFactory();
 	
 	protected abstract MaxentTagger createTagger();
 	
@@ -143,6 +144,15 @@ public abstract class AbstractTokenizingTool
 		}
 
 		return tagsAndTokens;
+	}
+	
+	public String stopwordsFilename()
+	{
+		return stopwordsFilename;
+	}
+	
+	public String punctuationFilename() {
+		return punctuationFilename;
 	}
 
 	public static void main(String[] args)

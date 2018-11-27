@@ -21,6 +21,7 @@ import edu.cmu.side.model.StatusUpdater;
 import edu.cmu.side.model.data.DocumentList;
 import edu.cmu.side.model.data.FeatureTable;
 import edu.cmu.side.model.data.PredictionResult;
+import edu.cmu.side.plugin.LearningPlugin;
 import edu.cmu.side.plugin.control.ImportController;
 import edu.cmu.side.view.util.CSVExporter;
 import edu.cmu.side.view.util.DocumentListTableModel;
@@ -228,8 +229,13 @@ public class Predictor
 		try
 		{
 			Chef.quiet = isQuiet();
+			Long when = System.currentTimeMillis();
 			Recipe newRecipe = Chef.followRecipe(recipe, corpus, Stage.MODIFIED_TABLE, 0);
+			System.out.println("followRecipe took " + (System.currentTimeMillis() - when) / 1000.0 + " seconds");
+
+			when = System.currentTimeMillis();
 			FeatureTable predictTable = newRecipe.getTrainingTable();
+			System.out.println("getTrainingTable took " + (System.currentTimeMillis() - when) / 1000.0 + " seconds");
 
 			if (!isQuiet())
 			{
@@ -259,7 +265,13 @@ public class Predictor
 			logger.info(predictTable.getFeatureSet().size() + " features total");
 		}
 
-		result = recipe.getLearner().predict(trainingTable, predictTable, recipe.getLearnerSettings(), textUpdater, recipe.getWrappers());
+		Long when = System.currentTimeMillis();
+		LearningPlugin lp = recipe.getLearner();
+		System.out.println("getLearner() took " + (System.currentTimeMillis() - when) / 1000.0 + " seconds");
+
+		when = System.currentTimeMillis();
+		result = lp.predict(trainingTable, predictTable, recipe.getLearnerSettings(), textUpdater, recipe.getWrappers());
+		System.out.println("learner.predict took " + (System.currentTimeMillis() - when) / 1000.0 + " seconds");
 
 		return result;
 	}

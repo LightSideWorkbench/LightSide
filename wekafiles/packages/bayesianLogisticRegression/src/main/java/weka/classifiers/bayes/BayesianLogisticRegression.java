@@ -1,17 +1,16 @@
 /*
- *    This program is free software; you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation; either version 2 of the License, or
- *    (at your option) any later version.
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
  *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
  *
- *    You should have received a copy of the GNU General Public License
- *    along with this program; if not, write to the Free Software
- *    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*
@@ -45,10 +44,7 @@ import weka.core.TechnicalInformation.Type;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Normalize;
 
-import java.util.Enumeration;
-import java.util.Random;
-import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.*;
 
 /**
  <!-- globalinfo-start -->
@@ -76,18 +72,12 @@ import java.util.Vector;
  *
  *
  *  @author Navendu Garg (gargnav at iit dot edu)
- *  @version $Revision: 6637 $
+ *  @version $Revision: 12784 $
  */
 public class BayesianLogisticRegression extends AbstractClassifier
   implements OptionHandler, TechnicalInformationHandler {
   
   static final long serialVersionUID = -8013478897911757631L;
-
-  /** Log-likelihood values to be used to choose the best hyperparameter. */
-  public static double[] LogLikelihood;
-
-  /** Set of values to be used as hyperparameter values during Cross-Validation. */
-  public static double[] InputHyperparameterValues;
 
   /** DEBUG Mode*/
   boolean debug = false;
@@ -115,6 +105,9 @@ public class BayesianLogisticRegression extends AbstractClassifier
 
   /** NumFolds for CV based Hyperparameters selection*/
   public int NumFolds = 2;
+
+  /** seed for randomizing the instances before CV */
+  public int m_seed = 1;
 
   /** Methods for selecting the hyperparameter value */
   public static final int NORM_BASED = 1;
@@ -222,7 +215,21 @@ public class BayesianLogisticRegression extends AbstractClassifier
     }
 
     //Set the intecept coefficient.
-    Attribute att = new Attribute("(intercept)");
+    String attName = "(intercept)";
+    String attAtZero = m_Instances.attribute(0).name();
+    int attNameIncr = 0;
+    if (attAtZero.startsWith(attName)) {
+      if (attAtZero.indexOf(')') < 
+          attAtZero.length() - 1) {
+        String tempNum = attAtZero.substring(attAtZero.indexOf(')') + 1,
+                                             attAtZero.length());
+        attNameIncr = Integer.parseInt(tempNum);
+        attNameIncr++;
+      }
+      attName += "" + attNameIncr;
+    }
+
+    Attribute att = new Attribute(attName);
     Instance instance;
 
     m_Instances.insertAttributeAt(att, 0);
@@ -295,8 +302,7 @@ public class BayesianLogisticRegression extends AbstractClassifier
    * This method tests what kind of data this classifier can handle.
    * return Capabilities
    */
-  @Override
-public Capabilities getCapabilities() {
+  public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     result.disableAll();
 
@@ -322,8 +328,7 @@ public Capabilities getCapabilities() {
    *        @param data training data
    *        @exception Exception if classifier can't be built successfully.
    */
-  @Override
-public void buildClassifier(Instances data) throws Exception {
+  public void buildClassifier(Instances data) throws Exception {
     Instance instance;
     int i;
     int j;
@@ -368,6 +373,16 @@ public void buildClassifier(Instances data) throws Exception {
 
     m_PriorUpdate.computelogLikelihood(BetaVector, m_Instances);
     m_PriorUpdate.computePenalty(BetaVector, Hyperparameters);
+
+    // Housekeeping!
+    m_Instances = new Instances(m_Instances, 0);
+    m_PriorUpdate.clean();
+    DeltaBeta = null;
+    DeltaUpdate = null;
+    Delta = null;
+    Hyperparameters = null;
+    R = null;
+    DeltaR = null;
   }
 
   /**
@@ -400,8 +415,7 @@ public void buildClassifier(Instances data) throws Exception {
     *
     * @return the technical information about this class
     */
-  @Override
-public TechnicalInformation getTechnicalInformation() {
+  public TechnicalInformation getTechnicalInformation() {
     TechnicalInformation result = null;
 
     result = new TechnicalInformation(Type.TECHREPORT);
@@ -520,9 +534,9 @@ public TechnicalInformation getTechnicalInformation() {
       mean += sqr_sum;
     }
 
-    mean = mean / m_Instances.numInstances();
+    mean = mean / (double) m_Instances.numInstances();
 
-    return (m_Instances.numAttributes()) / mean;
+    return ((double) m_Instances.numAttributes()) / mean;
   }
 
   /**
@@ -532,9 +546,13 @@ public TechnicalInformation getTechnicalInformation() {
    * @return the classification
    * @throws Exception if classification can't be done successfully
    */
-  @Override
-public double classifyInstance(Instance instance) throws Exception {
-    //TODO: Implement
+  public double classifyInstance(Instance instance) throws Exception {
+
+    if (getNormalizeData()) {
+      m_Filter.input(instance);
+      instance = m_Filter.output();
+    }
+
     double sum_R = 0.0;
     double classification = 0.0;
 
@@ -562,8 +580,7 @@ public double classifyInstance(Instance instance) throws Exception {
    *
    * @return the model as string
    */
-  @Override
-public String toString() {
+  public String toString() {
 
     if (m_Instances == null) {
       return "Bayesian logistic regression: No model built yet.";
@@ -589,7 +606,7 @@ public String toString() {
       break;
     }
 
-    buf.append(text).append(HyperparameterValue).append("\n\n");
+    buf.append(text).append(Utils.doubleToString(HyperparameterValue, getNumDecimalPlaces())).append("\n\n");
 
     buf.append("Regression Coefficients\n");
     buf.append("=========================\n\n");
@@ -598,15 +615,15 @@ public String toString() {
       if (j != ClassIndex) {
         if (BetaVector[j] != 0.0) {
           buf.append(m_Instances.attribute(j).name()).append(" : ")
-             .append(BetaVector[j]).append("\n");
+             .append(Utils.doubleToString(BetaVector[j], getNumDecimalPlaces())).append("\n");
         }
       }
     }
 
     buf.append("===========================\n\n");
-    buf.append("Likelihood: " + m_PriorUpdate.getLoglikelihood() + "\n\n");
-    buf.append("Penalty: " + m_PriorUpdate.getPenalty() + "\n\n");
-    buf.append("Regularized Log Posterior: " + m_PriorUpdate.getLogPosterior() +
+    buf.append("Likelihood: " + Utils.doubleToString(m_PriorUpdate.getLoglikelihood(), getNumDecimalPlaces()) + "\n\n");
+    buf.append("Penalty: " + Utils.doubleToString(m_PriorUpdate.getPenalty(), getNumDecimalPlaces()) + "\n\n");
+    buf.append("Regularized Log Posterior: " + Utils.doubleToString(m_PriorUpdate.getLogPosterior(), getNumDecimalPlaces()) +
       "\n");
     buf.append("===========================\n\n");
 
@@ -672,8 +689,8 @@ public String toString() {
     // Perform two-fold cross-validation to collect
     // unbiased predictions
     if (list != null) {
-      int numFolds = NumFolds;
-      Random random = new Random();
+      int numFolds = (int) NumFolds;
+      Random random = new Random(m_seed);
       m_Instances.randomize(random);
       m_Instances.stratify(numFolds);
 
@@ -730,11 +747,9 @@ public String toString() {
    *
    * @return an enumeration of all the available options.
    */
-  @Override
-public Enumeration listOptions() {
+  public Enumeration listOptions() {
     Vector newVector = new Vector();
 
-    newVector.addElement(new Option("\tShow Debugging Output\n", "D", 0, "-D"));
     newVector.addElement(new Option("\tDistribution of the Prior "
                                     +"(1=Gaussian, 2=Laplacian)"
                                     +"\n\t(default: 1=Gaussian)"
@@ -778,6 +793,12 @@ public Enumeration listOptions() {
     newVector.addElement(new Option("\tNormalize the data",
                                     "N", 0, "-N"));
 
+    newVector.addElement(new Option("\tSeed for randomizing instances order" +
+                                    "\n\tin CV-based hyperparameter selection\n\t(default: 1)",
+                                    "seed", 1, 
+                                    "-seed <number>"));
+    newVector.addAll(Collections.list(super.listOptions()));
+
     return newVector.elements();
   }
 
@@ -786,11 +807,7 @@ public Enumeration listOptions() {
    *
    <!-- options-start -->
    * Valid options are: <p/>
-   * 
-   * <pre> -D
-   *  Show Debugging Output
-   * </pre>
-   * 
+  *
    * <pre> -P &lt;integer&gt;
    *  Distribution of the Prior (1=Gaussian, 2=Laplacian)
    *  (default: 1=Gaussian)</pre>
@@ -827,21 +844,38 @@ public Enumeration listOptions() {
    * <pre> -N
    *  Normalize the data</pre>
    * 
+   * <pre> -seed &lt;number&gt;
+   *  Seed for randomizing instances order
+   *  in CV-based hyperparameter selection
+   *  (default: 1)</pre>
+  *
+   * -do-not-check-capabilities <br>
+   * If set, classifier capabilities are not checked before classifier is built
+   * (use with caution).
+   * <p>
+   *
+   * -num-decimal-laces <br>
+   * The number of decimal places for the output of numbers in the model.
+   * <p>
+   *
+   * -batch-size <br>
+   * The desired batch size for batch prediction.
+   * <p>
+   *
    <!-- options-end -->
    *
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
-  @Override
-public void setOptions(String[] options) throws Exception {
-    //Debug Option
-    debug = Utils.getFlag('D', options);
+  public void setOptions(String[] options) throws Exception {
 
     // Set Tolerance.
     String Tol = Utils.getOption("Tl", options);
 
     if (Tol.length() != 0) {
       Tolerance = Double.parseDouble(Tol);
+    } else {
+      Tolerance = 0.0005;
     }
 
     //Set Threshold
@@ -849,6 +883,8 @@ public void setOptions(String[] options) throws Exception {
 
     if (Thres.length() != 0) {
       Threshold = Double.parseDouble(Thres);
+    } else {
+      Threshold = 0.5;
     }
 
     //Set Hyperparameter Type 
@@ -856,6 +892,8 @@ public void setOptions(String[] options) throws Exception {
 
     if (Hype.length() != 0) {
       HyperparameterSelection = Integer.parseInt(Hype);
+    } else {
+      HyperparameterSelection = NORM_BASED;
     }
 
     //Set Hyperparameter Value 
@@ -863,45 +901,63 @@ public void setOptions(String[] options) throws Exception {
 
     if (HyperValue.length() != 0) {
       HyperparameterValue = Double.parseDouble(HyperValue);
+    } else {
+      HyperparameterValue = 0.27;
     }
 
     // Set hyper parameter range or list.
-    String HyperparameterRange = Utils.getOption("R", options);
+    String range = Utils.getOption("R", options);
+
+    if (range.length() != 0) {
+      HyperparameterRange = range;
+    } else {
+      HyperparameterRange = "R:0.01-316,3.16";
+    }
 
     //Set Prior class.
     String strPrior = Utils.getOption('P', options);
 
     if (strPrior.length() != 0) {
       PriorClass = Integer.parseInt(strPrior);
+    } else {
+      PriorClass = GAUSSIAN;
     }
 
     String folds = Utils.getOption('F', options);
 
     if (folds.length() != 0) {
       NumFolds = Integer.parseInt(folds);
+    } else {
+      NumFolds = 2;
+    }
+
+    String seed = Utils.getOption("seed", options);
+    if (seed.length() > 0) {
+      setSeed(Integer.parseInt(seed));
+    } else {
+      setSeed(1);
     }
 
     String iterations = Utils.getOption('I', options);
 
     if (iterations.length() != 0) {
       maxIterations = Integer.parseInt(iterations);
+    } else {
+      maxIterations = 100;
     }
 
     NormalizeData = Utils.getFlag('N', options);
 
-    //TODO: Implement this method for other options.
+    super.setOptions(options);
+
     Utils.checkForRemainingOptions(options);
   }
 
   /**
    *
    */
-  @Override
-public String[] getOptions() {
+  public String[] getOptions() {
     Vector result = new Vector();
-
-    //Add Debug Mode to options.
-    result.add("-D");
 
     //Add Tolerance value to options
     result.add("-Tl");
@@ -928,10 +984,17 @@ public String[] getOptions() {
     result.add("-F");
     result.add("" + NumFolds);
 
+    result.add("-seed");
+    result.add("" + getSeed());
+
     result.add("-I");
     result.add("" + maxIterations);
 
-    result.add("-N");
+    if (getNormalizeData()) {
+      result.add("-N");
+    }
+
+    Collections.addAll(result, super.getOptions());
 
     return (String[]) result.toArray(new String[result.size()]);
   }
@@ -943,25 +1006,6 @@ public String[] getOptions() {
    */
   public static void main(String[] argv) {
     runClassifier(new BayesianLogisticRegression(), argv);
-  }
-
-  /**
-   * Returns the tip text for this property
-   * 
-   * @return tip text for this property suitable for
-   * displaying in the explorer/experimenter gui
-   */
-  @Override
-public String debugTipText() {
-    return "Turns on debugging mode.";
-  }
-
-  /**
-   *
-   */
-  @Override
-public void setDebug(boolean debugMode) {
-    debug = debugMode;
   }
 
   /**
@@ -1164,6 +1208,37 @@ public void setDebug(boolean debugMode) {
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
    */
+  public String seedTipText() {
+    return "Seed for randomizing instances order prior to CV-based " +
+      "hyperparameter selection";
+  }
+  
+  /**
+   * Set the seed for randomizing the instances for CV-based
+   * hyperparameter selection
+   * 
+   * @param seed the seed to use
+   */
+  public void setSeed(int seed) {
+    m_seed = seed;
+  }
+  
+  /**
+   * Get the seed for randomizing the instances for CV-based
+   * hyperparameter selection
+   * 
+   * @return the seed to use
+   */
+  public int getSeed() {
+    return m_seed;
+  }
+
+  /**
+   * Returns the tip text for this property
+   * 
+   * @return tip text for this property suitable for
+   * displaying in the explorer/experimenter gui
+   */
   public String maxIterationsTipText() {
     return "The maximum number of iterations to perform.";
   }
@@ -1201,7 +1276,7 @@ public void setDebug(boolean debugMode) {
    *
    * @return true if the data is to be normalized
    */
-  public boolean isNormalizeData() {
+  public boolean getNormalizeData() {
     return NormalizeData;
   }
 
@@ -1249,22 +1324,12 @@ public void setDebug(boolean debugMode) {
   }
 
   /**
-   * Returns true if debug is turned on.
-   *
-   * @return true if debug is turned on
-   */
-  public boolean isDebug() {
-    return debug;
-  }
-  
-  /**
    * Returns the revision string.
    * 
    * @return		the revision
    */
-  @Override
-public String getRevision() {
-    return RevisionUtils.extract("$Revision: 6637 $");
+  public String getRevision() {
+    return RevisionUtils.extract("$Revision: 12784 $");
   }
 }
 

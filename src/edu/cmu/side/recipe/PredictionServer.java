@@ -282,12 +282,15 @@ public class PredictionServer implements Container
 			else
 			{
 				// TODO: authentication?
+				System.out.println(f.getAbsolutePath());
 				FileChannel fo = new FileOutputStream(f).getChannel();
 				ReadableByteChannel po = Channels.newChannel(part.getInputStream());
 				long transferred = fo.transferFrom(po, 0, Integer.MAX_VALUE);
 				System.out.println("wrote " + transferred + " bytes.");
 
+				Long when = System.currentTimeMillis();
 				boolean attached = attachModel(nick, f.getAbsolutePath());
+				System.out.println("Attach model took " + (System.currentTimeMillis() - when) / 1000.0 + " seconds");
 
 				if (attached)
 					return "received " + path + ": " + transferred + " bytes.\nModel attached as /predict/" + nick + "";
@@ -326,7 +329,9 @@ public class PredictionServer implements Container
 
 			model = request.getPath().getPath(1).substring(1);
 
+			Long when = System.currentTimeMillis();
 			checkModel(response, model);
+			System.out.println("Check model took " + (System.currentTimeMillis() - when) / 1000.0 + " seconds");
 
 			System.out.println("using model " + model + " on " + instances.size() + " instances...");
 			for (Comparable label : predictors.get(model).predict(instances))
