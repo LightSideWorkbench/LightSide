@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MAXHEAP="4g"
+MAXHEAP="8g"
 OS_ARGS=""
 #OTHER_ARGS=""
 OTHER_ARGS="-XX:+UseConcMarkSweepGC"
