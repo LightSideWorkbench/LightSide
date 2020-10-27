@@ -26,6 +26,7 @@ import org.simpleframework.http.Part;
 import org.simpleframework.http.Query;
 import org.simpleframework.http.Request;
 import org.simpleframework.http.Response;
+import org.simpleframework.http.Path;
 import org.simpleframework.http.core.Container;
 import org.simpleframework.http.core.ContainerServer;
 import org.simpleframework.transport.Server;
@@ -107,6 +108,18 @@ public class PredictionServer implements Container
 			}
 
 			else if (target.startsWith("/try"))
+			{
+				if (request.getMethod().equals("POST"))
+				{
+					answer = handleEvaluate(request, response);
+				}
+				else
+				{
+					answer = handleGetEvaluate(request, response, "<h1>Try it out!</h2>");
+				}
+			}
+
+			else if (target.startsWith("/evaluate"))
 			{
 				if (request.getMethod().equals("POST"))
 				{
@@ -217,8 +230,8 @@ public class PredictionServer implements Container
 	{
 		Part part = request.getPart("sample");
 		String sample = part.getContent();
-			
-
+		
+		Path modelPath = request.getPath();  		
 		String modelName = request.getPath().getPath(1).substring(1);
 		String answer = checkModel(response, modelName);
 		if(!answer.equals("OK"))
