@@ -36,6 +36,7 @@
 		<jarfile>genesis.jar</jarfile>
 		<classname>plugins.features.BasicFeatures</classname>
 	</plugin> 
+<!--
 	 <plugin>
         <name>Language Selection</name>
         <author>Elijah Mayfield</author>
@@ -44,6 +45,7 @@
         <jarfile>genesis.jar</jarfile>
         <classname>plugins.features.InternationalTokenSettings</classname>
     </plugin>
+-->
 
 	<plugin>
 		<name>Column Features</name>
