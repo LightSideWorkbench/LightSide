@@ -6,7 +6,8 @@
 
 MAXHEAP="4g"
 OS_ARGS=""
-OTHER_ARGS="-XX:+UseConcMarkSweepGC -Djava.awt.headless=true"
+#OTHER_ARGS="-XX:+UseConcMarkSweepGC -Djava.awt.headless=true"
+OTHER_ARGS="-Djava.awt.headless=true"
 
 MAIN_CLASS="edu.cmu.side.recipe.PredictionServer"
 
