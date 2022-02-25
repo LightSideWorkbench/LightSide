@@ -15,8 +15,20 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
+  <repositories>
+	<repository>
+	  <id>RiverLayout-mvn-repo</id>
+		<url>https://raw.github.com/Deses/RiverLayout/mvn-repo/</url>
+	</repository>
+  </repositories>
+
   <dependencyManagement>
     <dependencies>
+	  <dependency>
+		<groupId>se.datadosen.riverlayout</groupId>
+		<artifactId>riverlayout</artifactId>
+		<version>1.1</version>
+	  </dependency>
       <dependency>
         <groupId>arpack_combined</groupId>
         <artifactId>arpack_combined</artifactId>
