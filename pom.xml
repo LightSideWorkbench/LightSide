@@ -10,6 +10,11 @@
   <name>LightSide</name>
   <url>https://github.com/LightSideWorkbench/LightSide</url>
 
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -93,58 +98,13 @@
         <version>1.7.12-sources</version>
       </dependency>
       <dependency>
-        <groupId>slf4j-api</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>1.6.1</version>
-      </dependency>
-      <dependency>
-        <groupId>slf4j-api</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version/>
-      </dependency>
-      <dependency>
-        <groupId>stanford-parser</groupId>
-        <artifactId>stanford-parser</artifactId>
-        <version>3.9.2-javadoc</version>
-      </dependency>
-      <dependency>
         <groupId>stanford-parser</groupId>
         <artifactId>stanford-parser</artifactId>
         <version>3.9.2-sources</version>
       </dependency>
       <dependency>
-        <groupId>stanford-parser</groupId>
-        <artifactId>stanford-parser</artifactId>
-        <version/>
-      </dependency>
-      <dependency>
         <groupId>stanford-postagger</groupId>
         <artifactId>stanford-postagger</artifactId>
-        <version>3.9.2-javadoc</version>
-      </dependency>
-      <dependency>
-        <groupId>stanford-postagger</groupId>
-        <artifactId>stanford-postagger</artifactId>
-        <version>3.9.2-sources</version>
-      </dependency>
-      <dependency>
-        <groupId>stanford-postagger</groupId>
-        <artifactId>stanford-postagger</artifactId>
-        <version>3.9.2</version>
-      </dependency>
-      <dependency>
-        <groupId>stanford-postagger</groupId>
-        <artifactId>stanford-postagger</artifactId>
-        <version/>
-      </dependency>
-      <dependency>
-        <groupId>stanford-segmenter</groupId>
-        <artifactId>stanford-segmenter</artifactId>
-        <version>3.9.2-javadoc</version>
-      </dependency>
-      <dependency>
-        <groupId>stanford-segmenter</groupId>
-        <artifactId>stanford-segmenter</artifactId>
         <version>3.9.2-sources</version>
       </dependency>
       <dependency>
