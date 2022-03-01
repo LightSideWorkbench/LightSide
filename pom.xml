@@ -19,7 +19,7 @@
   <repositories>
 	<repository>
 	  <id>maven-local-repository</id>
-	  <url>file:/${project.basedir}/maven-local-repository</url>
+	  <url>file:///${project.basedir}/maven-local-repository</url>
 	</repository>
 	<repository>
 	  <id>RiverLayout-mvn-repo</id>
