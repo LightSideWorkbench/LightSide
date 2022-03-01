@@ -131,11 +131,6 @@
         <version>1.7.12-sources</version>
       </dependency>
       <dependency>
-        <groupId>edu.stanford.nlp</groupId>
-        <artifactId>stanford-parser</artifactId>
-        <version>3.9.2</version>
-      </dependency>
-      <dependency>
         <groupId>stanford-postagger</groupId>
         <artifactId>stanford-postagger</artifactId>
         <version>3.9.2-sources</version>
