@@ -21,10 +21,14 @@
 	  <url>https://raw.github.com/Deses/RiverLayout/mvn-repo/</url>
 	</repository>
 	<repository>
+	  <id>local-maven-repository</id>
+	  <url>file:${project.basedir}/local-maven-repository</url>
+	</repository>
+<!--
+	<repository>
 	  <id>mvn-repository</id>
 	  <url>https://mvnrepository.com/</url>
 	</repository>
-<!--
 	<repository>
 	  <id>mvnrepository</id>
 	  <url>http://repo1.maven.org/maven2</url>
@@ -160,6 +164,16 @@
 		<artifactId>xstream</artifactId>
 		<version>1.4.4</version>
 	  </dependency>
+      <dependency>
+        <groupId>com.thoughtworks.xstream</groupId>
+        <artifactId>xstream-benchmark</artifactId>
+        <version>1.4.4</version>
+      </dependency>
+      <dependency>
+        <groupId>com.thoughtworks.xstream</groupId>
+        <artifactId>xstream-hibernate</artifactId>
+        <version>1.4.4</version>
+      </dependency>
 <!--
 	  <dependency>
   		<groupId>com.thoughtworks.xstream</groupId>
@@ -186,7 +200,7 @@
 		<artifactId>xstream.xstream</artifactId>
 		<version>1.4.4</version>
 	  </dependency>
--->
+	  ...	  
       <dependency>
         <groupId>xstream-benchmark</groupId>
         <artifactId>xstream-benchmark</artifactId>
@@ -197,6 +211,7 @@
         <artifactId>xstream-hibernate</artifactId>
         <version>1.4.4</version>
       </dependency>
+-->
       <dependency>
         <groupId>antlr</groupId>
         <artifactId>antlr</artifactId>
