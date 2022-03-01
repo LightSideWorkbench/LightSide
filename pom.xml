@@ -131,9 +131,9 @@
         <version>1.7.12-sources</version>
       </dependency>
       <dependency>
-        <groupId>stanford-parser</groupId>
+        <groupId>edu.stanford.nlp</groupId>
         <artifactId>stanford-parser</artifactId>
-        <version>3.9.2-sources</version>
+        <version>3.9.2</version>
       </dependency>
       <dependency>
         <groupId>stanford-postagger</groupId>
@@ -362,8 +362,13 @@
   </dependencyManagement>
   <dependencies>
   	<dependency>
-  		<groupId>com.thoughtworks.xstream</groupId>
-  		<artifactId>xstream</artifactId>
+	  <groupId>com.thoughtworks.xstream</groupId>
+	  <artifactId>xstream</artifactId>
   	</dependency>
+    <dependency>
+	  <groupId>edu.stanford.nlp</groupId>
+	  <artifactId>stanford-parser</artifactId>
+	  <version>3.9.2</version>
+    </dependency>
   </dependencies>
 </project>
