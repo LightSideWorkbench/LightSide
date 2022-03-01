@@ -18,12 +18,12 @@
 
   <repositories>
 	<repository>
-	  <id>RiverLayout-mvn-repo</id>
-	  <url>https://raw.github.com/Deses/RiverLayout/mvn-repo/</url>
+	  <id>maven-local-repository</id>
+	  <url>file:/${project.basedir}/maven-local-repository</url>
 	</repository>
 	<repository>
-	  <id>local-maven-repository</id>
-	  <url>file:${project.basedir}/local-maven-repository</url>
+	  <id>RiverLayout-mvn-repo</id>
+	  <url>https://raw.github.com/Deses/RiverLayout/mvn-repo/</url>
 	</repository>
 <!--
 	<repository>
@@ -364,6 +364,11 @@
 	  <groupId>edu.stanford.nlp</groupId>
 	  <artifactId>stanford-parser</artifactId>
 	  <version>3.9.2</version>
+    </dependency>
+    <dependency>
+	  <groupId>com.yeriho.yeritools</groupId>
+	  <artifactId>yeritools-min</artifactId>
+	  <version>1.0</version>
     </dependency>
   </dependencies>
 </project>
