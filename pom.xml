@@ -360,6 +360,11 @@
 	  <groupId>com.thoughtworks.xstream</groupId>
 	  <artifactId>xstream</artifactId>
   	</dependency>
+	<dependency>
+	  <groupId>com.thoughtworks.xstream</groupId>
+	  <artifactId>xstream-hibernate</artifactId>
+	  <version>1.4.19</version>
+	</dependency>
     <dependency>
 	  <groupId>edu.stanford.nlp</groupId>
 	  <artifactId>stanford-parser</artifactId>
