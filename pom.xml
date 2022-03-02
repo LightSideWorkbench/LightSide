@@ -430,5 +430,10 @@
       <artifactId>simple</artifactId>
       <version>5.1.6</version>
     </dependency>
+    <dependency>
+      <groupId>org.simpleframework</groupId>
+      <artifactId>simple-transport</artifactId>
+      <version>6.0.1</version>
+    </dependency>
   </dependencies>
 </project>
