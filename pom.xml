@@ -400,5 +400,10 @@
       <artifactId>AbstractClassifierTest</artifactId>
       <version>3.7.11</version>
     </dependency>
+    <dependency>
+      <groupId>com.oracle.database.xml</groupId>
+      <artifactId>xmlparserv2</artifactId>
+      <version>21.5.0.0</version>
+    </dependency>
   </dependencies>
 </project>
