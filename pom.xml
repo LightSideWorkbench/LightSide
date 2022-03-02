@@ -410,5 +410,10 @@
       <artifactId>commons-math3</artifactId>
       <version>3.6.1</version>
     </dependency>
+    <dependency>
+      <groupId>plugins</groupId>
+      <artifactId>features</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
 </project>
