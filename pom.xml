@@ -116,4 +116,36 @@
       <version>6.0.1</version>
     </dependency>
   </dependencies>
+  
+	<build>
+	  <plugins>
+		<plugin>
+		  <artifactId>maven-assembly-plugin</artifactId>
+		  <configuration>
+			<archive>
+			  <manifest>
+				<mainClass>edu.cmu.side.Workbench</mainClass>
+			  </manifest>
+			</archive>
+			<descriptorRefs>
+			  <descriptorRef>jar-with-dependencies</descriptorRef>
+			</descriptorRefs>
+			<outputDirectory>
+              ${project.basedir}/maven-local-repository
+            </outputDirectory>
+		  </configuration>
+		  <executions>
+			<execution>
+			  <id>make-assembly</id> <!-- this is used for inheritance merges -->
+			  <phase>package</phase> <!-- bind to the packaging phase -->
+			  <goals>
+				<goal>single</goal>
+			  </goals>
+			</execution>
+		  </executions>
+		</plugin>
+	  </plugins>
+	</build>  
+  
+  
 </project>
