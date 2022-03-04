@@ -119,6 +119,26 @@
   
 	<build>
 	  <plugins>
+	  
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-dependency-plugin</artifactId>
+		  <executions>
+			<execution>
+			  <id>copy-dependencies</id>
+			  <phase>prepare-package</phase>
+			  <goals>
+					<goal>copy-dependencies</goal>
+			  </goals>
+			  <configuration>
+				<outputDirectory>
+				 ${project.build.directory}/dependencies
+				</outputDirectory>
+			  </configuration>
+			</execution>
+		  </executions>
+		</plugin>
+			  
 	  	<plugin>
 	  	  <groupId>org.apache.maven.plugins</groupId>
 	  	  <artifactId>maven-jar-plugin</artifactId>
@@ -131,9 +151,19 @@
 			</execution>
 	  	  </executions>
 	  	  <configuration>
+	  	    <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>dependencies/</classpathPrefix>
+                <mainClass>
+                  edu.cmu.side.Workbench
+                </mainClass>
+              </manifest>
+            </archive>
 		    <finalName>../maven-local-repository/LightSide</finalName>
 	  	  </configuration>
-	  	</plugin>	
+	  	</plugin>
+	  		
 	  </plugins>
 	</build>  
   
