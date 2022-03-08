@@ -132,7 +132,7 @@
 			  </goals>
 			  <configuration>
 				<outputDirectory>
-				 ${project.build.directory}/dependencies
+				 ${project.basedir}/dependencies
 				</outputDirectory>
 			  </configuration>
 			</execution>
@@ -154,13 +154,13 @@
 	  	    <archive>
               <manifest>
                 <addClasspath>true</addClasspath>
-                <classpathPrefix>dependencies/</classpathPrefix>
+                <classpathPrefix>${project.basedir}/dependencies/</classpathPrefix>
                 <mainClass>
                   edu.cmu.side.Workbench
                 </mainClass>
               </manifest>
             </archive>
-		    <finalName>../maven-local-repository/LightSide</finalName>
+		    <finalName>../LightSide</finalName>
 	  	  </configuration>
 	  	</plugin>
 	  		
