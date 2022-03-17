@@ -12,13 +12,19 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
+repositories {
+    flatDir {
+        dirs("libs")
+    }
+}
+
 application {
     mainClass.set("edu.cmu.side.Workbench")
 }
 
 repositories {
     mavenCentral()
-    mavenLocal()
+/*    mavenLocal() */
     maven {
         url = uri("file:////Users/rcmurray/git/LightSideWorkBench/LightSide/maven-local-repository")
     }
@@ -37,7 +43,7 @@ dependencies {
     implementation("com.thoughtworks.xstream:xstream-hibernate:1.4.19")
     implementation("edu.stanford.nlp:stanford-corenlp:3.9.2")
     implementation("edu.stanford.nlp:stanford-parser:3.9.2")
-    implementation("com.yeriho.yeritools:yeritools-min:1.0")
+    implementation(":yeritools-min-1.0")
     implementation("junit:junit:4.13.2")
     implementation("se.datadosen.riverlayout:riverlayout:1.1")
     implementation("nz.ac.waikato.cms.weka:weka-stable:3.8.0")
@@ -76,22 +82,5 @@ tasks.withType<JavaCompile>() {
 tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "edu.cmu.side.Workbench"
-    }
-}
-
-tasks {
-    val fatJar = register<Jar>("fatJar") {
-        dependsOn.addAll(listOf("compileJava", "compileKotlin", "processResources")) // We need this for Gradle optimization to work
-        archiveClassifier.set("LightSide") // Naming the jar
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-        manifest { attributes(mapOf("Main-Class" to application.mainClass)) } // Provided we set it up in the application plugin configuration
-        val sourcesMain = sourceSets.main.get()
-        val contents = configurations.runtimeClasspath.get()
-            .map { if (it.isDirectory) it else zipTree(it) } +
-                sourcesMain.output
-        from(contents)
-    }
-    build {
-        dependsOn(fatJar) // Trigger fat jar creation during build
     }
 }
