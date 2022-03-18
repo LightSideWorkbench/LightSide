@@ -47,7 +47,7 @@ dependencies {
     implementation(":yeritools-min-1.0")
     implementation("junit:junit:4.13.2")
     implementation("se.datadosen.riverlayout:riverlayout:1.1")
-    implementation("nz.ac.waikato.cms.weka:weka-stable:3.8.0")
+    implementation("nz.ac.waikato.cms.weka:weka-dev:3.9.6")
     implementation("nz.ac.waikato.cms.weka:LibSVM:1.0.10")
     implementation("nz.ac.waikato.cms.weka:LibLINEAR:1.9.7")
     implementation("nz.ac.waikato.cms.weka:AbstractClassifierTest:3.7.11")
