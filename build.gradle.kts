@@ -63,7 +63,7 @@ dependencies {
 group = "edu.cmu.side"
 version = "1.0-SNAPSHOT"
 description = "LightSide"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 val testsJar by tasks.registering(Jar::class) {
     archiveClassifier.set("tests")
@@ -88,9 +88,9 @@ tasks.withType<Jar> {
 }
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
-    jvmTarget = "11"
+    jvmTarget = "17"
 }
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
-    jvmTarget = "11"
+    jvmTarget = "17"
 }
