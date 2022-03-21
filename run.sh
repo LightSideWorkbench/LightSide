@@ -20,9 +20,11 @@ MAIN_CLASS="edu.cmu.side.Workbench"
 
 JAR="LightSide.jar"
 
+ADD_OPENS="java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED"
+
 CLASSPATH=""
 
 #CLASSPATH="bin:lib/*:lib/xstream/*:wekafiles/packages/chiSquaredAttributeEval/chiSquaredAttributeEval.jar:wekafiles/packages/bayesianLogisticRegression/bayesianLogisticRegression.jar:wekafiles/packages/LibLINEAR/lib/liblinear-java-1.96-SNAPSHOT.jar:wekafiles/packages/LibLINEAR/LibLINEAR.jar:wekafiles/packages/LibSVM/lib/libsvm.jar:wekafiles/packages/LibSVM/LibSVM.jar:plugins/genesis.jar"
     
-java -cp $JAR $OS_ARGS -Xmx$MAXHEAP $OTHER_ARGS -splash:toolkits/icons/logo.png $MAIN_CLASS $@
+java -cp $JAR $OS_ARGS -Xmx$MAXHEAP $OTHER_ARGS --add-opens $ADD_OPENS -splash:toolkits/icons/logo.png $MAIN_CLASS $@
 

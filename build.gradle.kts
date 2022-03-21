@@ -21,6 +21,7 @@ repositories {
 
 application {
     mainClass.set("edu.cmu.side.Workbench")
+/*    applicationDefaultJvmArgs =  listOf("--add-opens", "java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED") */
 }
 
 repositories {
