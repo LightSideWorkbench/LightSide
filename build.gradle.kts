@@ -16,6 +16,9 @@ repositories {
     flatDir {
         dirs("libs")
     }
+    flatDir() {
+        dirs("plugins")
+    }
     mavenCentral()
 }
 
@@ -47,6 +50,7 @@ dependencies {
     implementation("edu.stanford.nlp:stanford-corenlp:3.9.2")
     implementation("edu.stanford.nlp:stanford-parser:3.9.2")
     implementation(":yeritools-min-1.0")
+    implementation(":genesis")
     implementation("junit:junit:4.13.2")
     implementation("se.datadosen.riverlayout:riverlayout:1.1")
     implementation("nz.ac.waikato.cms.weka:weka-dev:3.9.6")
@@ -58,7 +62,7 @@ dependencies {
 /*    implementation("nz.ac.waikato.cms.weka:AbstractClassifierTest:3.9.6") */
     implementation("com.oracle.database.xml:xmlparserv2:21.5.0.0")
     implementation("org.apache.commons:commons-math3:3.6.1")
-    implementation("plugins:features:1.0")
+/*      implementation("plugins:features:1.0") */
     implementation("org.simpleframework:simple-http:6.0.1")
     implementation("org.simpleframework:simple:5.1.6")
     implementation("org.simpleframework:simple-transport:6.0.1")

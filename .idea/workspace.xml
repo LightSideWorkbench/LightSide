@@ -10,15 +10,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dcf5ec40-2a70-49f5-8990-4cd19713c917" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/LightSide_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/LightSide.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LightSide.jar" beforeDir="false" afterPath="$PROJECT_DIR$/LightSide.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/1.0/features-1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/1.0/features-1.0.jar.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/1.0/features-1.0.jar.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/1.0/features-1.0.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/1.0/features-1.0.pom.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/1.0/features-1.0.pom.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/features/1.0/features-1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/features/1.0/features-1.0.jar.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/features/1.0/features-1.0.jar.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/features/1.0/features-1.0.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/features/1.0/features-1.0.pom.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/features/1.0/features-1.0.pom.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/features/maven-metadata.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/features/maven-metadata.xml.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/features/maven-metadata.xml.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/maven-metadata.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/maven-metadata.xml.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maven-local-repository/plugins/features/maven-metadata.xml.sha1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/plugins/genesis.jar" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/genesis.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
