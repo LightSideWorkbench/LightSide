@@ -24,12 +24,10 @@ repositories {
 
 application {
     mainClass.set("edu.cmu.side.Workbench")
-/*    applicationDefaultJvmArgs =  listOf("--add-opens", "java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED") */
 }
 
 repositories {
     mavenCentral()
-/*    mavenLocal() */
     maven {
         url = uri("file:////Users/rcmurray/git/LightSideWorkBench/LightSide/maven-local-repository")
     }
@@ -37,11 +35,6 @@ repositories {
     maven {
         url = uri("https://raw.github.com/Deses/RiverLayout/mvn-repo/")
     }
-/*
-    maven {
-        url = uri("https://repo.maven.apache.org/maven2/")
-    }
- */
 }
 
 dependencies {
@@ -59,10 +52,8 @@ dependencies {
     implementation("nz.ac.waikato.cms.weka:LibLINEAR:1.9.7")
     implementation("nz.ac.waikato.cms.weka:chiSquaredAttributeEval:1.0.4")
     implementation("nz.ac.waikato.cms.weka:AbstractClassifierTest:3.7.11")
-/*    implementation("nz.ac.waikato.cms.weka:AbstractClassifierTest:3.9.6") */
     implementation("com.oracle.database.xml:xmlparserv2:21.5.0.0")
     implementation("org.apache.commons:commons-math3:3.6.1")
-/*      implementation("plugins:features:1.0") */
     implementation("org.simpleframework:simple-http:6.0.1")
     implementation("org.simpleframework:simple:5.1.6")
     implementation("org.simpleframework:simple-transport:6.0.1")
