@@ -11,7 +11,19 @@
   <component name="ChangeListManager">
     <list default="true" id="7079acab-f889-4599-ab85-6de50e559370" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LightSide.jar" beforeDir="false" afterPath="$PROJECT_DIR$/LightSide.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/genesis.jar" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/genesis.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/weka/attributeSelection/ChiSquaredAttributeEval.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/weka/attributeSelection/ChiSquaredAttributeEvalTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/weka/classifiers/bayes/BayesianLogisticRegression.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/weka/classifiers/bayes/BayesianLogisticRegressionTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/weka/classifiers/bayes/blr/GaussianPriorImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/weka/classifiers/bayes/blr/LaplacePriorImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/weka/classifiers/bayes/blr/Prior.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/weka/classifiers/functions/LibLINEAR.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/weka/classifiers/functions/LibLINEARTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/weka/classifiers/functions/LibSVM.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/weka/classifiers/functions/LibSVMTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +61,18 @@
                 <item name="LightSide" type="f1a62948:ProjectNode" />
                 <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
                 <item name="compileClasspath" type="62daadca:ExternalSystemViewDefaultContributor$DependencyScopeExternalSystemNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="LightSide" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+                <item name="runtimeClasspath" type="62daadca:ExternalSystemViewDefaultContributor$DependencyScopeExternalSystemNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="LightSide" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+                <item name="testCompileClasspath" type="62daadca:ExternalSystemViewDefaultContributor$DependencyScopeExternalSystemNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -97,9 +121,9 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.43719414" />
+    <property name="project.structure.side.proportion" value="0.08395062" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RunManager" selected="Shell Script.run.sh">
