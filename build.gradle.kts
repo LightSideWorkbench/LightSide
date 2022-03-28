@@ -50,8 +50,10 @@ dependencies {
     implementation("junit:junit:4.13.2")
     implementation("se.datadosen.riverlayout:riverlayout:1.1")
     implementation("nz.ac.waikato.cms.weka:weka-dev:3.9.6")
+    implementation("nz.ac.waikato.cms.weka:bayesianLogisticRegression:1.0.5")
     implementation("nz.ac.waikato.cms.weka:LibSVM:1.0.10")
     implementation("nz.ac.waikato.cms.weka:LibLINEAR:1.9.7")
+    implementation("nz.ac.waikato.cms.weka:chiSquaredAttributeEval:1.0.4")
     implementation("nz.ac.waikato.cms.weka:AbstractClassifierTest:3.7.11")
 /*    implementation("nz.ac.waikato.cms.weka:AbstractClassifierTest:3.9.6") */
     implementation("com.oracle.database.xml:xmlparserv2:21.5.0.0")
