@@ -34,10 +34,11 @@ repositories {
     maven {
         url = uri("https://raw.github.com/Deses/RiverLayout/mvn-repo/")
     }
-
+/*
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
     }
+ */
 }
 
 dependencies {
