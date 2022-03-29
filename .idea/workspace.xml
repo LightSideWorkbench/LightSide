@@ -11,115 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="dcf5ec40-2a70-49f5-8990-4cd19713c917" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/AbstractClassifierTest-3.7.11.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/AppleJavaExtensions-1.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/LibLINEAR-1.9.7.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/LibSVM-1.0.10.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/all-1.1.2.pom" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/antlr-2.7.7.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/arpack_combined_all-0.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/bounce-0.18.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/commons-lang3-3.3.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/commons-math3-3.6.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/core-1.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/dom4j-1.6.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/ejml-0.23.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/ejml-cdense-0.39.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/ejml-core-0.39.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/ejml-ddense-0.39.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/ejml-dsparse-0.39.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/ejml-fdense-0.39.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/ejml-fsparse-0.39.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/ejml-simple-0.39.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/ejml-zdense-0.39.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/features-1.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/flatlaf-2.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/hamcrest-core-1.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/hibernate-commons-annotations-4.0.2.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/hibernate-core-4.2.5.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/hibernate-jpa-2.0-api-1.0.1.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/istack-commons-runtime-3.0.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jakarta.activation-1.2.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jakarta.activation-api-1.2.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jakarta.xml.bind-api-2.3.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/java-cup-11b-2015.03.26.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/java-cup-11b-20160615.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/java-cup-11b-runtime-2015.03.26.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/java-cup-runtime-11b-20160615.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/javassist-3.15.0-GA.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/javax.activation-api-1.2.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/javax.json-1.0.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/javax.servlet-api-3.0.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jaxb-api-2.4.0-b180830.0359.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jaxb-core-2.3.0.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jaxb-impl-2.4.0-b180830.0438.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jaxb-runtime-2.3.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jboss-logging-3.1.0.GA.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jboss-transaction-api_1.1_spec-1.0.1.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jclipboardhelper-0.1.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jfilechooser-bookmarks-0.1.6.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jniloader-1.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/joda-time-2.10.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/joda-time-2.9.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jollyday-0.4.9.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/jsr305-3.0.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/junit-4.13.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/liblinear-2.43.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/libsvm-3.25.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/lucene-analyzers-common-4.10.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/lucene-analyzers-common-7.5.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/lucene-core-4.10.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/lucene-core-7.5.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/lucene-queries-4.10.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/lucene-queries-7.5.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/lucene-queryparser-4.10.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/lucene-queryparser-7.5.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/lucene-sandbox-4.10.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/lucene-sandbox-7.5.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/mtj-1.0.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/mxparser-1.2.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/native_ref-java-1.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/native_system-java-1.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-java-1.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_ref-linux-armhf-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_ref-linux-i686-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_ref-linux-x86_64-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_ref-osx-x86_64-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_ref-win-i686-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_ref-win-x86_64-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_system-linux-armhf-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_system-linux-i686-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_system-linux-x86_64-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_system-osx-x86_64-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_system-win-i686-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/netlib-native_system-win-x86_64-1.1-natives.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/protobuf-java-3.11.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/protobuf-java-3.2.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/riverlayout-1.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/serializer-2.7.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/simple-5.1.6.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/simple-common-6.0.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/simple-http-6.0.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/simple-transport-6.0.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/slf4j-api-1.7.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/stanford-corenlp-3.9.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/stanford-corenlp-4.4.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/stanford-parser-3.9.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/txw2-2.3.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/weka-dev-3.9.6.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/weka-stable-3.8.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/xalan-2.7.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/xalan-2.7.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/xercesImpl-2.8.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/xml-apis-1.3.03.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/xmlparserv2-21.5.0.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/xmlpull-1.1.3.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/xom-1.2.10.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/xom-1.3.7.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/xstream-1.4.19.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/xstream-hibernate-1.4.19.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies/yeritools-min-1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LightSide.jar" beforeDir="false" afterPath="$PROJECT_DIR$/LightSide.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/genesis.jar" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/genesis.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,6 +54,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
