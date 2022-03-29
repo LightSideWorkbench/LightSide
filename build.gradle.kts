@@ -51,7 +51,6 @@ dependencies {
     implementation("nz.ac.waikato.cms.weka:LibSVM:1.0.10")
     implementation("nz.ac.waikato.cms.weka:LibLINEAR:1.9.7")
     implementation("nz.ac.waikato.cms.weka:chiSquaredAttributeEval:1.0.4")
-    implementation("nz.ac.waikato.cms.weka:AbstractClassifierTest:3.7.11")
     implementation("com.oracle.database.xml:xmlparserv2:21.5.0.0")
     implementation("org.apache.commons:commons-math3:3.6.1")
     implementation("org.simpleframework:simple-http:6.0.1")
