@@ -68,6 +68,11 @@ repositories {
         }
     }
 
+    tasks.withType<Test>().all {
+        jvmArgs("--add-opens=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED")
+    }
+
+
     tasks.withType<JavaCompile>() {
         options.encoding = "UTF-8"
         options.compilerArgs.addAll(arrayOf(
@@ -75,7 +80,7 @@ repositories {
             "--add-exports", "java.base/java.util=ALL-UNNAMED"
         ))
     }
-    
+
 
 
 //    application {
