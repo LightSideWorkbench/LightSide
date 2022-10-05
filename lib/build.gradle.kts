@@ -69,7 +69,8 @@ repositories {
     }
 
     tasks.withType<Test>().all {
-        jvmArgs("--add-opens=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED")
+        jvmArgs("--add-opens=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED",
+                "--add-opens=java.base/java.util=ALL-UNNAMED")
     }
 
 
