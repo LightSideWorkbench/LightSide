@@ -59,6 +59,7 @@ public class FeatureTableConverterTest {
 	public void testConvertExistantPredict(){
 		FeatureTable ftBefore = predictRecipe.getFeatureTable();
 		XStream streamer = getXStream();
+		streamer.allowTypesByWildcard(new String[] {"edu.cmu.side.**"});
 		String xml = streamer.toXML(ftBefore);
 		Object afterObj = streamer.fromXML(xml);
 		FeatureTable ftAfter = (FeatureTable) afterObj;
