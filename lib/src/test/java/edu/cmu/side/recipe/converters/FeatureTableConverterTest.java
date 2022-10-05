@@ -70,6 +70,7 @@ public class FeatureTableConverterTest {
 	public void testConvertExistantModel(){
 		FeatureTable ftBefore = wholeRecipe.getFeatureTable();
 		XStream streamer = getXStream();
+		streamer.allowTypesByWildcard(new String[] {"edu.cmu.side.**"});
 		String xml = streamer.toXML(ftBefore);
 		Object afterObj = streamer.fromXML(xml);
 		FeatureTable ftAfter = (FeatureTable) afterObj;
@@ -79,6 +80,7 @@ public class FeatureTableConverterTest {
 	public void testConvertNull(){
 		FeatureTable ftBefore = null;
 		XStream streamer = getXStream();
+		streamer.allowTypesByWildcard(new String[] {"edu.cmu.side.**"});
 		String XML = streamer.toXML(ftBefore);
 		Object afterObj = streamer.fromXML(XML);
 		assertNull(afterObj);
@@ -91,6 +93,7 @@ public class FeatureTableConverterTest {
 		if(xStream == null)
 		{
 			xStream = new XStream();
+			xStream.allowTypesByWildcard(new String[] {"edu.cmu.side.**"});
 			xStream.registerConverter(new FeatureTableConverter());
 		}
 		return xStream;

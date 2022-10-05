@@ -120,7 +120,6 @@ public class ConverterControl
 	public static Recipe readFromXML(String fileName) throws IOException
 	{
 		File file = createFile(fileName);
-
 		return readFromXML(file);
 	}
 
@@ -142,6 +141,7 @@ public class ConverterControl
 	public static void writeToXML(File file, Recipe recipe) throws IOException
 	{
 		XStream stream = getXStream();
+		stream.allowTypesByWildcard(new String[] {"edu.cmu.side.**"});
 		FileOutputStream fileOut = new FileOutputStream(file);
 		OutputStreamWriter writer = new OutputStreamWriter(fileOut, Charset.forName("UTF-8"));
 		stream.toXML(recipe, writer);
@@ -152,14 +152,14 @@ public class ConverterControl
 	public static String getXMLString(Recipe recipe)
 	{
 		XStream stream = getXStream();
-
+		stream.allowTypesByWildcard(new String[] {"edu.cmu.side.**"});
 		return stream.toXML(recipe);
 	}
 
 	public static Recipe getRecipeFromXMLString(String recipeXML)
 	{
 		XStream stream = getXStream();
-
+		stream.allowTypesByWildcard(new String[] {"edu.cmu.side.**"});
 		return (Recipe) stream.fromXML(recipeXML);
 
 	}
@@ -222,6 +222,7 @@ public class ConverterControl
 		OutputStreamWriter zipperWriter = new OutputStreamWriter(zipper, Charset.forName("UTF-8"));
 		zipper.putNextEntry(new ZipEntry(r.getRecipeName()));
 		XStream stream = getXStream();
+		stream.allowTypesByWildcard(new String[] {"edu.cmu.side.**"});
 		stream.toXML(r, zipperWriter);
 		zipper.closeEntry();
 		zipper.close();
@@ -237,6 +238,7 @@ public class ConverterControl
 		InputStreamReader unzipperReader = new InputStreamReader(unzipper, Charset.forName("UTF-8"));
 		
 		XStream stream = getXStream();
+		stream.allowTypesByWildcard(new String[] {"edu.cmu.side.**"});
 		Recipe r = (Recipe) stream.fromXML(unzipperReader);
 		unzipper.close();
 		
@@ -249,6 +251,7 @@ public class ConverterControl
 		if(xStream == null)
 		{
 			xStream = new XStream();
+			xStream.allowTypesByWildcard(new String[] {"edu.cmu.side.**"});
 			xStream.registerConverter(new FeatureTableConverter());
 		}
 		return xStream;

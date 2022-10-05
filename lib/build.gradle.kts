@@ -43,7 +43,7 @@ repositories {
         api("edu.stanford.nlp:stanford-parser:3.9.2")
         api(":yeritools-min-1.0")
         api(":genesis")
-        api("junit:junit:4.13.2")
+//        api("junit:junit:4.13.2")
         testCompileOnly("junit:junit:4.13.2")
         api("se.datadosen.riverlayout:riverlayout:1.1")
         api("nz.ac.waikato.cms.weka:weka-dev:3.9.6")
@@ -64,8 +64,8 @@ repositories {
             val test by getting(JvmTestSuite::class) {
                 // Use JUnit4 test framework
                 useJUnit("4.13.2")
+                }
             }
-        }
     }
 
     tasks.withType<Test>().all {

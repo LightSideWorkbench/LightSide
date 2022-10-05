@@ -62,6 +62,7 @@ public class PluginLoader {
 	}*/
 	
 	public PluginLoader(String jarFilePath, String className) throws Exception {
+		System.err.println("PluginLoader.java, PluginLoader: jarFilePath: " + jarFilePath + "   className: " + className);
 		this.jarFile = new File(jarFilePath);
 		if (!jarFile.exists()) {
 			throw new Exception("Could not read Jar xmiFile at "
