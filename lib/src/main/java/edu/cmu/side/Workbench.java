@@ -31,7 +31,7 @@ public class Workbench{
 	public static File rootFolder = new File(System.getProperty("user.dir"));
 	static public String PLATFORM_FILE_SEPARATOR = System.getProperty("file.separator");
 	static public String BASE_PATH = rootFolder.getAbsolutePath() + PLATFORM_FILE_SEPARATOR;
-	static public File PLUGIN_FOLDER = new File(BASE_PATH, "plugins");
+	static public File PLUGIN_FOLDER = new File(BASE_PATH, "lib/src/test/java/plugins");
 	public static File dataFolder = new File(rootFolder, "data");
 	public static File stopwordsFolder = new File(dataFolder, "stopwords");
 	public static File csvFolder = dataFolder;

@@ -120,6 +120,7 @@ public class ConverterControl
 	public static Recipe readFromXML(String fileName) throws IOException
 	{
 		File file = createFile(fileName);
+		System.err.println("ConverterControl.java, readFromXML(String filename) - file path: " + file.getAbsolutePath());
 		return readFromXML(file);
 	}
 

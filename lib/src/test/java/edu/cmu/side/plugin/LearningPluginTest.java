@@ -42,7 +42,9 @@ public class LearningPluginTest
 	@Test
 	public void testTrainNominal() throws Exception
 	{
+//		 Recipe wholeRecipe = ConverterControl.readFromXML("lib/testData/test.model.side.xml");
 		 Recipe wholeRecipe = ConverterControl.readFromXML("testData/test.model.side.xml");
+//		 Recipe wholeRecipe = ConverterControl.readFromXML("test.model.side.xml");
 		 Recipe trained = Chef.followRecipe(wholeRecipe, wholeRecipe.getDocumentList(), Stage.TRAINED_MODEL, wholeRecipe.getFeatureTable().getThreshold());
 		 assert (trained.equals(wholeRecipe));
 	}

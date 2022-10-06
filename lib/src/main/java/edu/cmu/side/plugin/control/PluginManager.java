@@ -174,15 +174,15 @@ public class PluginManager {
 		return pluginTypeMap;
 	}
 	
-	
+
 	
 	//the only pluginManager anyone cares about is the one instantiated by Workbench.
 	private PluginManager(File rootFolder) {
 		// Traverse the directory, building a PluginCollection for each folder
 		// that we find
 		if(!rootFolder.isDirectory())
-			throw new IllegalArgumentException("Plugin folder '"+rootFolder.toString() + "' is not a directory.");
-		
+//			throw new IllegalArgumentException("Plugin folder '"+rootFolder.toString() + "' is not a directory.");
+			throw new IllegalArgumentException("Plugin folder '"+rootFolder.getAbsolutePath() + "' is not a directory.");
 		pluginFile = rootFolder;
 
 		//initialize static pluginTypeMap.
@@ -199,6 +199,10 @@ public class PluginManager {
 	public static PluginManager getSharedPluginManager()
 	{
 		File rootFolder = new File("plugins");
+//		File rootFolder = new File("lib/plugins");
+//		File rootFolder = new File("../../Genesis-Plugins/lib/src/test/java/plugins");
+//		File rootFolder = new File("../../Genesis-Plugins/lib/src/test/java/plugins");
+//		File rootFolder = new File("lib/src/main/java/plugins");
 		if(pluginManager == null)
 		{
 			pluginManager = new PluginManager(rootFolder); //TODO: maybe make this more flexible.
