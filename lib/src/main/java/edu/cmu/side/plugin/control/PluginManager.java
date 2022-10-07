@@ -198,7 +198,7 @@ public class PluginManager {
 	
 	public static PluginManager getSharedPluginManager()
 	{
-		File rootFolder = new File("plugins");
+		File rootFolder = new File("../../LightSide/lib/plugins");
 //		File rootFolder = new File("lib/plugins");
 //		File rootFolder = new File("../../Genesis-Plugins/lib/src/test/java/plugins");
 //		File rootFolder = new File("../../Genesis-Plugins/lib/src/test/java/plugins");

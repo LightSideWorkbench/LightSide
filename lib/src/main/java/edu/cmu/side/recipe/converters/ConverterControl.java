@@ -128,6 +128,7 @@ public class ConverterControl
 	{
 		XStream stream = getXStream();
 		stream.allowTypesByWildcard(new String[] {"edu.cmu.side.**"});
+		System.err.println("ConverterControl.java, readFromXML(File) -- file path: " + file.getAbsolutePath());
 		Recipe r =(Recipe) stream.fromXML(new InputStreamReader(new FileInputStream(file), Charset.forName("UTF-8")));
         
 		return r;
