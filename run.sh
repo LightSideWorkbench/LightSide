@@ -1,24 +1,35 @@
 #!/bin/bash
 
-MAXHEAP="8g"
-OS_ARGS=""
-#OTHER_ARGS=""
-OTHER_ARGS="-XX:+UseConcMarkSweepGC"
-
-if [ `uname` == "Darwin" ]; then
-    OS_ARGS="-Xdock:icon=toolkits/icons/bulbs/bulb_128.png -Xdock:name=LightSide"
-elif [ `uname` == "Linux" ]; then
-    OS_ARGS="-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel"
+if type -p java; then
+    _java=java  
+elif [[ -n $JAVA_HOME ]] && [[ -x "$JAVA_HOME/bin/java" ]];  then
+    _java="$JAVA_HOME/bin/java"
+else
+    echo "*** No Java JRE found: Install Java 1.8 or greater and then try again ***"
+    exit 1
 fi
 
-if [[ -z "$1" ]]; then
-    echo 'no DISPLAY variable set. Using DISPLAY=:0.0...' 
-    export DISPLAY=:0.0
+if [[ "$_java" ]]; then
+    version=$("$_java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
+    echo Java version "$version"
 fi
 
-MAIN_CLASS="edu.cmu.side.Workbench"
+IFS='.' 
+read -ra V <<<"$version"
+v0=${V[0]}
+v1=${V[1]}
+IFS='' 
 
-CLASSPATH="bin:lib/*:lib/xstream/*:wekafiles/packages/chiSquaredAttributeEval/chiSquaredAttributeEval.jar:wekafiles/packages/bayesianLogisticRegression/bayesianLogisticRegression.jar:wekafiles/packages/LibLINEAR/lib/liblinear-java-1.96-SNAPSHOT.jar:wekafiles/packages/LibLINEAR/LibLINEAR.jar:wekafiles/packages/LibSVM/lib/libsvm.jar:wekafiles/packages/LibSVM/LibSVM.jar:plugins/genesis.jar"
-    
-java $OS_ARGS -Xmx$MAXHEAP $OTHER_ARGS -splash:toolkits/icons/logo.png -classpath $CLASSPATH $MAIN_CLASS $@
-
+if [ $v0 = "1" ] && [ $v1 = "8" ]; then\
+    . run-java8.sh
+elif [ $v0 = "1" ] && [ $v1 < "8" ]; then
+    echo "*** LightSide requires Java 1.8 or greater ***"
+    exit 1
+elif [ $v0 = "1" ] && [ $v1 > "8" ]; then
+    . run-java9plus.sh
+elif [ $v0 > "1" ]; then
+    . run-java9plus.sh
+else 
+    echo "*** Invalid Java version ***"
+    exit 1
+fi 
