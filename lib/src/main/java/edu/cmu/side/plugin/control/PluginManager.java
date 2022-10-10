@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+//import java.nio.file.FileSystems;
 
 import oracle.xml.parser.v2.DOMParser;
 import oracle.xml.parser.v2.XMLDocument;
@@ -152,6 +153,7 @@ public class PluginManager {
 	}
 
 	protected static ListValueMap<String,PluginWrapper> createPluginTypeMap(File rootFolder, StringBuilder errorComment) {
+		System.err.println("PluginManager.ListValueMap, rootFolder path: " + rootFolder.getAbsolutePath());
 		YeriDebug.ASSERT(rootFolder.isDirectory());
 		
 		ListValueMap<String,PluginWrapper> pluginTypeMap = new ListValueMap<String,PluginWrapper>();
@@ -180,6 +182,8 @@ public class PluginManager {
 	private PluginManager(File rootFolder) {
 		// Traverse the directory, building a PluginCollection for each folder
 		// that we find
+//		rootFolderCanonical = rootFolder.getCanonicalPath();
+//		if(!rootFolderCanonical.isDirectory())
 		if(!rootFolder.isDirectory())
 //			throw new IllegalArgumentException("Plugin folder '"+rootFolder.toString() + "' is not a directory.");
 			throw new IllegalArgumentException("Plugin folder '"+rootFolder.getAbsolutePath() + "' is not a directory.");
@@ -198,8 +202,19 @@ public class PluginManager {
 	
 	public static PluginManager getSharedPluginManager()
 	{
-		File rootFolder = new File("../../LightSide/lib/plugins");
-//		File rootFolder = new File("lib/plugins");
+		// Multiple errors for LightSide & Genesis-Plugins tests *** but Workbench RUNS ***
+		File rootFolder = new File("lib/plugins");
+
+		// Only 1 error each for LightSide & Genesis-Plugins tests *** but Workbench doesn't run ***
+//		File rootFolder = new File("../../LightSide/lib/plugins");
+
+//		String rootPath = "../LightSide/lib/plugins";
+//		String absolutePath = FileSystems.getDefault().getPath(rootPath).normalize().toAbsolutePath().toString();
+//		System.err.println("PluginManager constructor - root folder absolute path " + absolutePath);
+//		File rootFolder = new File(absolutePath);
+
+//		File rootFolder = new File("../LightSide/lib/plugins");
+//		File rootFolder = new File("plugins");
 //		File rootFolder = new File("../../Genesis-Plugins/lib/src/test/java/plugins");
 //		File rootFolder = new File("../../Genesis-Plugins/lib/src/test/java/plugins");
 //		File rootFolder = new File("lib/src/main/java/plugins");
