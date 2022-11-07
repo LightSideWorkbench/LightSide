@@ -223,13 +223,33 @@ public class PluginManager {
 		Integer penultimatePathElementIndex = lastPathElementIndex - 1;
 		System.err.println("PluginManager constructor - current lastPathElementIndex: " + lastPathElementIndex.toString());
 		String lastPathElement = currentAbsolutePath.getName(lastPathElementIndex).toString();
+		String penultimatePathElement = currentAbsolutePath.getName(penultimatePathElementIndex).toString();
 		System.err.println("PluginManager constructor - current lastPathElement: " + lastPathElement);
 		Path partialPath = null;
-		if (lastPathElement.equals("lib")) {
+
+//		if (lastPathElement.equals("lib")) {
+//			partialPath = Paths.get("plugins");
+//		} else {
+//			partialPath = Paths.get("lib/plugins");
+//		}
+		String pathRoot = currentAbsolutePath.getRoot().toString();
+		if (penultimatePathElement.equals("LightSide") && lastPathElement.equals("lib")) {
 			partialPath = Paths.get("plugins");
-		} else {
+		} else if (lastPathElement.equals("LightSide")) {
 			partialPath = Paths.get("lib/plugins");
+		} else if (lastPathElement.equals("Genesis-Plugins")) {
+//			String pathPrefix = currentAbsolutePath.subpath(0,penultimatePathElementIndex).toString();
+			String pathPrefix = currentAbsolutePath.subpath(0,lastPathElementIndex).toString();
+			currentAbsolutePath = Paths.get(pathRoot + pathPrefix);
+			partialPath = Paths.get("LightSide/lib/plugins");
+		} else if (penultimatePathElement.equals("Genesis-Plugins") && lastPathElement.equals("lib")) {
+//			Integer skipGenesisPluginsPathIndex = penultimatePathElementIndex - 1;
+//			String pathPrefix = currentAbsolutePath.subpath(0, skipGenesisPluginsPathIndex).toString();
+			String pathPrefix = currentAbsolutePath.subpath(0,penultimatePathElementIndex).toString();
+			currentAbsolutePath = Paths.get(pathRoot + pathPrefix);
+			partialPath = Paths.get("LightSide/lib/plugins");
 		}
+
 //		Path partialPath = Paths.get("lib/plugins");
 		Path rootFolderPath = currentAbsolutePath.resolve(partialPath);
 		File rootFolder = new File(rootFolderPath.toString());
