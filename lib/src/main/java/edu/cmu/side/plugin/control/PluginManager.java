@@ -221,10 +221,10 @@ public class PluginManager {
 		Path currentAbsolutePath = currentRelativePath.toAbsolutePath();
 		Integer lastPathElementIndex = currentAbsolutePath.getNameCount() - 1;
 		Integer penultimatePathElementIndex = lastPathElementIndex - 1;
-		System.err.println("PluginManager constructor - current lastPathElementIndex: " + lastPathElementIndex.toString());
+//		System.err.println("PluginManager constructor - current lastPathElementIndex: " + lastPathElementIndex.toString());
 		String lastPathElement = currentAbsolutePath.getName(lastPathElementIndex).toString();
 		String penultimatePathElement = currentAbsolutePath.getName(penultimatePathElementIndex).toString();
-		System.err.println("PluginManager constructor - current lastPathElement: " + lastPathElement);
+//		System.err.println("PluginManager constructor - current lastPathElement: " + lastPathElement);
 		Path partialPath = null;
 
 //		if (lastPathElement.equals("lib")) {

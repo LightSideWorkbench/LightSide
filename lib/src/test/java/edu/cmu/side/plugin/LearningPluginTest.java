@@ -44,8 +44,10 @@ public class LearningPluginTest
 	{
 //		 Recipe wholeRecipe = ConverterControl.readFromXML("lib/testData/test.model.side.xml");
 		 Recipe wholeRecipe = ConverterControl.readFromXML("testData/test.model.side.xml");
+		 System.err.println("LearningPluginTest.java, testTrainNominal: wholeRecipe: " + wholeRecipe.toString());
 //		 Recipe wholeRecipe = ConverterControl.readFromXML("test.model.side.xml");
 		 Recipe trained = Chef.followRecipe(wholeRecipe, wholeRecipe.getDocumentList(), Stage.TRAINED_MODEL, wholeRecipe.getFeatureTable().getThreshold());
+	     System.err.println("LearningPluginTest.java, testTrainNominal: trained recipe: " + trained.toString());
 		 assert (trained.equals(wholeRecipe));
 	}
 	
@@ -53,7 +55,9 @@ public class LearningPluginTest
 	public void testTrainNumeric() throws Exception
 	{
 		 Recipe wholeRecipe = ConverterControl.readFromXML("testData/test.numeric.model.side.xml");
+		 System.err.println("LearningPluginTest.java, testTrainNumeric: wholeRecipe: " + wholeRecipe.toString());
 		 Recipe trained = Chef.followRecipe(wholeRecipe, wholeRecipe.getDocumentList(), Stage.TRAINED_MODEL, wholeRecipe.getFeatureTable().getThreshold());
+		 System.err.println("LearningPluginTest.java, testTrainNumeric: trained recipe: " + trained.toString());
 		 assert (trained.equals(wholeRecipe));
 	}
 
