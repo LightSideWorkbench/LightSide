@@ -26,7 +26,7 @@ repositories {
     flatDir {
         dirs("libs")
     }
-    flatDir() {
+    flatDir {
         dirs("plugins")
     }
     maven {
@@ -74,7 +74,7 @@ repositories {
     }
 
 
-    tasks.withType<JavaCompile>() {
+    tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
         options.compilerArgs.addAll(arrayOf(
             "--add-exports", "java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED",
