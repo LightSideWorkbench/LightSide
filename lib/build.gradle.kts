@@ -17,8 +17,14 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_17
+//java.sourceCompatibility = JavaVersion.VERSION_17
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
 
+version = "1.2.1"
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -36,19 +42,24 @@ repositories {
     dependencies {
         // This dependency is used by the application.
         implementation("com.google.guava:guava:31.0.1-jre")
+        implementation("nz.ac.waikato.cms.weka:weka-stable:3.8.6")
+        implementation("nz.ac.waikato.cms.weka:LibSVM:1.0.10")
+        implementation("tw.edu.ntu.csie:libsvm:3.31")
+        implementation(":libsvm")
 
         api("com.thoughtworks.xstream:xstream:1.4.19")
         api("com.thoughtworks.xstream:xstream-hibernate:1.4.19")
         api("edu.stanford.nlp:stanford-corenlp:3.9.2")
         api("edu.stanford.nlp:stanford-parser:3.9.2")
         api(":yeritools-min-1.0")
+        api(":libsvm")
         api(":genesis")
 //        api("junit:junit:4.13.2")
         testCompileOnly("junit:junit:4.13.2")
         api("se.datadosen.riverlayout:riverlayout:1.1")
-        api("nz.ac.waikato.cms.weka:weka-dev:3.9.6")
+//        api("nz.ac.waikato.cms.weka:weka-dev:3.9.6")
         api("nz.ac.waikato.cms.weka:bayesianLogisticRegression:1.0.5")
-        api("nz.ac.waikato.cms.weka:LibSVM:1.0.10")
+//        api("nz.ac.waikato.cms.weka:LibSVM:1.0.10")
         api("nz.ac.waikato.cms.weka:LibLINEAR:1.9.7")
         api("nz.ac.waikato.cms.weka:chiSquaredAttributeEval:1.0.4")
         api("com.oracle.database.xml:xmlparserv2:21.5.0.0")
@@ -76,10 +87,10 @@ repositories {
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.compilerArgs.addAll(arrayOf(
-            "--add-exports", "java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED",
-            "--add-exports", "java.base/java.util=ALL-UNNAMED"
-        ))
+//        options.compilerArgs.addAll(arrayOf(
+//            "--add-exports", "java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED",
+//            "--add-exports", "java.base/java.util=ALL-UNNAMED"
+//        ))
     }
 
 

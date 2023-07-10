@@ -74,11 +74,12 @@ public class PluginLoader {
 		try 
 		{
 			Class<?> clazz = getClass(this.jarFile, className);
+			System.err.println("PluginLoader.java, PluginLoader, clazz.toString(): " + clazz.toString());
 			Constructor<?> constructor = clazz.getConstructor();
 			this.plugin = (SIDEPlugin) constructor.newInstance();
 			this.plugin.setRootFolder(new File(""));
 		} catch (Exception e) {
-			System.out.println("error with class '"+className+"'");
+			System.out.println("PluginLoader.java, PluginLoader -- error with class '"+className+"'");
 			YeriDebug.ASSERT(e);
 		}
 
