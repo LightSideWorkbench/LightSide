@@ -9,4 +9,4 @@
  */
 
 rootProject.name = "LightSide"
-include("lib")
+//include("lib")
