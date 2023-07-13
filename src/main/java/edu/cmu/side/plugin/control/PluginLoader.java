@@ -62,7 +62,7 @@ public class PluginLoader {
 	}*/
 	
 	public PluginLoader(String jarFilePath, String className) throws Exception {
-		System.err.println("PluginLoader.java, PluginLoader: jarFilePath: " + jarFilePath + "   className: " + className);
+//		System.out.println("PluginLoader.java, PluginLoader: jarFilePath: " + jarFilePath + "   className: " + className);
 		this.jarFile = new File(jarFilePath);
 		if (!jarFile.exists()) {
 			throw new Exception("Could not read Jar xmiFile at "
@@ -74,12 +74,12 @@ public class PluginLoader {
 		try 
 		{
 			Class<?> clazz = getClass(this.jarFile, className);
-			System.err.println("PluginLoader.java, PluginLoader, clazz.toString(): " + clazz.toString());
+//			System.out.println("PluginLoader.java, PluginLoader, clazz.toString(): " + clazz.toString());
 			Constructor<?> constructor = clazz.getConstructor();
 			this.plugin = (SIDEPlugin) constructor.newInstance();
 			this.plugin.setRootFolder(new File(""));
 		} catch (Exception e) {
-			System.out.println("PluginLoader.java, PluginLoader -- error with class '"+className+"'");
+//			System.out.println("PluginLoader.java, PluginLoader -- error with class '"+className+"'");
 			YeriDebug.ASSERT(e);
 		}
 
