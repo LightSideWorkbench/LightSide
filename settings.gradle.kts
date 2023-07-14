@@ -10,3 +10,7 @@
 
 rootProject.name = "LightSide"
 //include("lib")
+
+plugins {
+    id("com.gradle.enterprise") version("3.13.4")
+}
