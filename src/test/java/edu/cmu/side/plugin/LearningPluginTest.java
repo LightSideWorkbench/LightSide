@@ -2,11 +2,15 @@ package edu.cmu.side.plugin;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import java.io.File;
 
 import edu.cmu.side.model.Recipe;
 import edu.cmu.side.model.RecipeManager.Stage;
 import edu.cmu.side.recipe.Chef;
 import edu.cmu.side.recipe.converters.ConverterControl;
+
+// TEMPORARY
+import edu.cmu.side.view.util.RecipeExporter;
 
 /* Things to test:
  * training models
@@ -56,8 +60,18 @@ public class LearningPluginTest
 	{
 		 Recipe wholeRecipe = ConverterControl.readFromXML("testData/test.numeric.model.side.xml");
 		 System.err.println("LearningPluginTest.java, testTrainNumeric: wholeRecipe: " + wholeRecipe.toString());
+
+		 // TEMP for testing
+		 File originalFile = new File("original-file.xml");
+		 RecipeExporter.exportToXML(wholeRecipe,originalFile);
+
 		 Recipe trained = Chef.followRecipe(wholeRecipe, wholeRecipe.getDocumentList(), Stage.TRAINED_MODEL, wholeRecipe.getFeatureTable().getThreshold());
 		 System.err.println("LearningPluginTest.java, testTrainNumeric: trained recipe: " + trained.toString());
+
+		// TEMP for testing
+		 File trainedFile = new File("trained-file.xml");
+		 RecipeExporter.exportToXML(trained,trainedFile);
+
 		 assert (trained.equals(wholeRecipe));
 	}
 
