@@ -119,7 +119,7 @@ public class PluginLoader {
 
 		try {
 			Class<?> clazz = getClass(jarFile, className);
-			sidePlugin = (SIDEPlugin) clazz.newInstance();
+			sidePlugin = (SIDEPlugin) clazz.getDeclaredConstructor().newInstance();
 			sidePlugin.setRootFolder(new File(""));
 		} catch (Exception e) {
 			YeriDebug.die(e);
