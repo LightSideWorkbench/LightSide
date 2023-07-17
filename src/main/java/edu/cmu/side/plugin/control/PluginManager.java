@@ -157,7 +157,7 @@ public class PluginManager {
 	}
 
 	protected static ListValueMap<String,PluginWrapper> createPluginTypeMap(File rootFolder, StringBuilder errorComment) {
-		System.err.println("PluginManager.ListValueMap, rootFolder path: " + rootFolder.getAbsolutePath());
+//		System.err.println("PluginManager.ListValueMap, rootFolder path: " + rootFolder.getAbsolutePath());
 		YeriDebug.ASSERT(rootFolder.isDirectory());
 		
 		ListValueMap<String,PluginWrapper> pluginTypeMap = new ListValueMap<String,PluginWrapper>();
@@ -206,85 +206,32 @@ public class PluginManager {
 	
 	public static PluginManager getSharedPluginManager()
 	{
-		// Multiple errors for LightSide & Genesis-Plugins tests *** but Workbench RUNS ***
-//		File rootFolder = new File("lib/plugins");
-
-		// Only 1 error each for LightSide & Genesis-Plugins tests *** but Workbench doesn't run ***
-//		File rootFolder = new File("../../LightSide/lib/plugins");
-
-		// Only 1 error each for LighSide & Genesis-Plugins tests *** but Workbench doesn't run ***
-		//    PluginManager constructor - rootFolderPathString: /Users/rcmurray/git/LightSide/lib/plugins
-		//    PluginManager constructor - rootFolder getAbsolutePath: /Users/rcmurray/git/LightSide/lib/plugins
-		//    Plugin folder '/Users/rcmurray/git/LightSide/lib/plugins' is not a directory.
-
 		Path currentRelativePath = Paths.get("");
 		Path currentAbsolutePath = currentRelativePath.toAbsolutePath();
 		Integer lastPathElementIndex = currentAbsolutePath.getNameCount() - 1;
 		Integer penultimatePathElementIndex = lastPathElementIndex - 1;
-//		System.err.println("PluginManager constructor - current lastPathElementIndex: " + lastPathElementIndex.toString());
 		String lastPathElement = currentAbsolutePath.getName(lastPathElementIndex).toString();
 		String penultimatePathElement = currentAbsolutePath.getName(penultimatePathElementIndex).toString();
-//		System.err.println("PluginManager constructor - current lastPathElement: " + lastPathElement);
 		Path partialPath = null;
-
-//		if (lastPathElement.equals("lib")) {
-//			partialPath = Paths.get("plugins");
-//		} else {
-//			partialPath = Paths.get("lib/plugins");
-//		}
 		String pathRoot = currentAbsolutePath.getRoot().toString();
 		if (penultimatePathElement.equals("LightSide") && lastPathElement.equals("lib")) {
 			partialPath = Paths.get("plugins");
 		} else if (lastPathElement.equals("LightSide")) {
 			partialPath = Paths.get("lib/plugins");
 		} else if (lastPathElement.equals("Genesis-Plugins")) {
-//			String pathPrefix = currentAbsolutePath.subpath(0,penultimatePathElementIndex).toString();
 			String pathPrefix = currentAbsolutePath.subpath(0,lastPathElementIndex).toString();
 			currentAbsolutePath = Paths.get(pathRoot + pathPrefix);
 			partialPath = Paths.get("LightSide/lib/plugins");
 		} else if (penultimatePathElement.equals("Genesis-Plugins") && lastPathElement.equals("lib")) {
-//			Integer skipGenesisPluginsPathIndex = penultimatePathElementIndex - 1;
-//			String pathPrefix = currentAbsolutePath.subpath(0, skipGenesisPluginsPathIndex).toString();
 			String pathPrefix = currentAbsolutePath.subpath(0,penultimatePathElementIndex).toString();
 			currentAbsolutePath = Paths.get(pathRoot + pathPrefix);
 			partialPath = Paths.get("LightSide/lib/plugins");
 		}
 
-//		Path partialPath = Paths.get("lib/plugins");
 		Path rootFolderPath = currentAbsolutePath.resolve(partialPath);
 		File rootFolder = new File(rootFolderPath.toString());
-		System.err.println("PluginManager constructor - rootFolder getAbsolutePath: " + rootFolder.getAbsolutePath());
-
-//		String currentAbsolutePath = currentRelativePath.toAbsolutePath().toString();
-//		System.err.println("PluginManager constructor - currentAbsolutePath: " + currentAbsolutePath);
-
-
-//		String currentCanonicalPath = currentRelativePath.toCanonicalPath().toString();
-//		System.err.println("PluginManager constructor - currentCanonicalPath: " + currentCanonicalPath);
-
-//		File tempFile = new File( "../../LightSide/lib/plugins");
-//		String rootFolderPathString = null;
-////		String rootFolderPathString = tempFile.getAbsolutePath();
-//		try {
-//			rootFolderPathString = tempFile.getCanonicalPath();
-//			System.err.println("PluginManager constructor - rootFolderPathString: " + rootFolderPathString);
-//		} catch(Exception e) {
-//			System.err.println("PluginManager constructor - rootFolderPathString failed: " + rootFolderPathString);
-//		}
-//		File rootFolder = new File(rootFolderPathString);
 //		System.err.println("PluginManager constructor - rootFolder getAbsolutePath: " + rootFolder.getAbsolutePath());
 
-
-//		String rootPath = "../LightSide/lib/plugins";
-//		String absolutePath = FileSystems.getDefault().getPath(rootPath).normalize().toAbsolutePath().toString();
-//		System.err.println("PluginManager constructor - root folder absolute path " + absolutePath);
-//		File rootFolder = new File(absolutePath);
-
-//		File rootFolder = new File("../LightSide/lib/plugins");
-//		File rootFolder = new File("plugins");
-//		File rootFolder = new File("../../Genesis-Plugins/lib/src/test/java/plugins");
-//		File rootFolder = new File("../../Genesis-Plugins/lib/src/test/java/plugins");
-//		File rootFolder = new File("lib/src/main/java/plugins");
 		if(pluginManager == null)
 		{
 			pluginManager = new PluginManager(rootFolder); //TODO: maybe make this more flexible.

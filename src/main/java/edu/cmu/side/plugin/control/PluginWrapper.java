@@ -49,7 +49,7 @@ public class PluginWrapper implements Comparable<PluginWrapper>, XMLable {
 		try {
 			String jarFilePath = this.getJarFile().getAbsolutePath();
 			String className = configMap.get(CLASSNAME);
-			System.err.println("PluginWrapper.java, getSIDEPlugin - jarFilePath: " + jarFilePath + "  className: " + className);
+//			System.err.println("PluginWrapper.java, getSIDEPlugin - jarFilePath: " + jarFilePath + "  className: " + className);
 			PluginLoader pl = new PluginLoader(jarFilePath, className);
 			sidePlugin = pl.Plugin();
 		} catch (Exception e) {
