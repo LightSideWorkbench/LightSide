@@ -99,7 +99,7 @@ public class SelectPluginList extends JList {
 			if (obj instanceof JCheckBox) {
 				JCheckBox checkbox = (JCheckBox) obj;
 				if (checkbox.isSelected()) {
-					list.add(new Integer(i));
+					list.add(Integer.valueOf(i));
 				}
 			}
 		}

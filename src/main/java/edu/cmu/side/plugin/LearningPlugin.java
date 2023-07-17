@@ -164,7 +164,7 @@ public abstract class LearningPlugin extends SIDEPlugin implements Serializable
 				case NUMERIC:
 					for (int i = 0; i < wrappedTable.getSize(); i++)
 					{
-						blankPredictions.add((Comparable) new Double(0.0));
+						blankPredictions.add((Comparable) Double.valueOf(0.0));
 					}
 					break;
 			}
