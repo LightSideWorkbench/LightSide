@@ -66,7 +66,7 @@ public class FeatureTableTest extends TestCase{
 		{
 			return Arrays.asList(s);
 		}
-		
+
 		@Override
 		public boolean isTokenized(Feature f)
 		{
@@ -77,7 +77,7 @@ public class FeatureTableTest extends TestCase{
 		@Override
 		public Collection<FeatureHit> extractFeatureHitsForSubclass(DocumentList documents, StatusUpdater update)
 		{
-			Collection<FeatureHit> hits = new ArrayList<FeatureHit>();
+			Collection<FeatureHit> hits = new ArrayList<>();
 			
 			Map<String, List<String>> textColumns = documents.getCoveredTextList();
 			for(String column : textColumns.keySet())
@@ -116,7 +116,7 @@ public class FeatureTableTest extends TestCase{
 		public Map<String, String> generateConfigurationSettings()
 		{
 			// TODO Auto-generated method stub
-			return new HashMap<String, String>();
+			return new HashMap<>();
 		}
 
 		@Override
@@ -133,7 +133,7 @@ public class FeatureTableTest extends TestCase{
 	@Override
 	public void setUp(){
 		if(hasChanged){
-			docList = new DocumentList(new HashSet<String>(Arrays.asList(files)));
+			docList = new DocumentList(new HashSet<>(Arrays.asList(files)));
 			docList.guessTextAndAnnotationColumns();
 			featureHits = featureMaker.extractFeatureHitsForSubclass(docList, textUpdater);
 //			numericDocList = new DocumentList(new HashSet<String>(Arrays.asList(numericFiles)));
