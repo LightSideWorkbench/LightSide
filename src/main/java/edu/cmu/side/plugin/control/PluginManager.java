@@ -13,8 +13,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-//import java.nio.file.FileSystems;
-
 import oracle.xml.parser.v2.DOMParser;
 import oracle.xml.parser.v2.XMLDocument;
 import oracle.xml.parser.v2.XMLParseException;
@@ -180,7 +178,7 @@ public class PluginManager {
 		return pluginTypeMap;
 	}
 	
-
+	
 	
 	//the only pluginManager anyone cares about is the one instantiated by Workbench.
 	private PluginManager(File rootFolder) {

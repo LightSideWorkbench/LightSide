@@ -43,26 +43,27 @@ repositories {
     dependencies {
         // This dependency is used by the application.
         implementation("com.google.guava:guava:31.0.1-jre")
-        implementation("com.thoughtworks.xstream:xstream:1.4.19")
-        implementation("com.thoughtworks.xstream:xstream-hibernate:1.4.19")
         implementation("edu.stanford.nlp:stanford-corenlp:3.9.2")
         implementation("edu.stanford.nlp:stanford-parser:3.9.2")
-        implementation(":yeritools-min-1.0")
-        implementation(":genesis")
-        implementation("junit:junit:4.13.2")
         implementation("se.datadosen.riverlayout:riverlayout:1.1")
-        implementation("nz.ac.waikato.cms.weka:weka-dev:3.9.6")
+//        implementation("nz.ac.waikato.cms.weka:weka-dev:3.9.6")
+        implementation("nz.ac.waikato.cms.weka:weka-stable:3.8.6")
         implementation("nz.ac.waikato.cms.weka:bayesianLogisticRegression:1.0.5")
         implementation("nz.ac.waikato.cms.weka:LibSVM:1.0.10")
         implementation("nz.ac.waikato.cms.weka:LibLINEAR:1.9.7")
         implementation("nz.ac.waikato.cms.weka:chiSquaredAttributeEval:1.0.4")
         implementation("com.oracle.database.xml:xmlparserv2:21.5.0.0")
-        implementation("org.apache.commons:commons-math3:3.6.1")
         implementation("org.simpleframework:simple-http:6.0.1")
         implementation("org.simpleframework:simple:5.1.6")
         implementation("org.simpleframework:simple-transport:6.0.1")
         implementation("de.bwaldvogel:liblinear:2.44")
-//        implementation(kotlin("stdlib-jdk8"))
+        implementation(":yeritools-min-1.0")
+        implementation("junit:junit:4.13.2")
+
+        implementation("com.thoughtworks.xstream:xstream:1.4.19")
+        implementation("com.thoughtworks.xstream:xstream-hibernate:1.4.19")
+        implementation("org.apache.commons:commons-math3:3.6.1")
+        implementation(":genesis")
     }
 
     testing {
